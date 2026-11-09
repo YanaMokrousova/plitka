@@ -377,7 +377,7 @@
       </div>
     </section>
 
-    <!-- ==================== КОНТАКТЫ + ШАБЛОН СООБЩЕНИЯ ==================== -->
+        <!-- ==================== КОНТАКТЫ + ШАБЛОН СООБЩЕНИЯ ==================== -->
     <section class="section contacts" id="contacts">
       <div class="container contacts__inner">
 
@@ -385,7 +385,7 @@
         <div class="contacts__info reveal">
           <p class="eyebrow">Контакты</p>
           <h2 class="section__title">Посчитаем стоимость бесплатно</h2>
-          <p class="section__text">Пришлите размеры и фото помещения в мессенджер, и мы ответим в течение часа. Или заполните короткий шаблон, и сообщение само отправится нам в WhatsApp или Telegram.</p>
+          <p class="section__text">Скопируйте шаблон сообщения справа, подставьте свои данные и отправьте нам в Telegram или по SMS. Или просто позвоните.</p>
 
           <ul class="contacts__list">
             <li><span>Телефон</span><a href="tel:+79990000000">+7 (999) 000-00-00</a></li>
@@ -393,48 +393,31 @@
             <li><span>Где работаем</span><p>Сочи и окрестности</p></li>
           </ul>
 
-          <!-- Кнопки мессенджеров: замените номер и имя пользователя на настоящие -->
+          <!-- Только Telegram и Телефон -->
           <div class="messengers">
-            <a href="https://wa.me/79990000000" class="messenger messenger--wa" target="_blank" rel="noopener">WhatsApp</a>
-            <a href="https://t.me/username" class="messenger messenger--tg" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://t.me/username" class="messenger messenger--tg" target="_blank" rel="noopener">Написать в Telegram</a>
+            <a href="tel:+79990000000" class="messenger messenger--phone" target="_blank" rel="noopener">Позвонить</a>
           </div>
         </div>
 
-        <!-- Правая колонка: шаблон сообщения (вместо формы заявки).
-             Клиент заполняет поля, нажимает кнопку, и готовый текст уходит вам в личку. -->
-        <form class="form reveal" id="msgForm" novalidate>
-          <h3 class="form__title">Напишите нам</h3>
+        <!-- Правая колонка: шаблон для копирования (вместо формы) -->
+        <div class="template-box reveal">
+          <h3 class="form__title">Шаблон сообщения</h3>
+          <p class="section__text" style="margin-bottom: 8px;">Нажмите кнопку, текст скопируется. Остаётся только вставить его в чат.</p>
+          
+          <textarea class="template-text" id="msgTemplate" readonly>Здравствуйте! Меня зовут [Ваше имя].
+Интересует: [Ванная под ключ / Кухонный фартук / Другое].
+Площадь: примерно [X] м².
+Адрес: [Ваш город/район].
+Комментарий: [Ваши пожелания или вопросы]</textarea>
+          
+          <button class="btn btn--primary btn--full" id="copyTemplateBtn" type="button">Скопировать текст</button>
+          <p class="form__note" id="copyHint" hidden style="margin-top: 4px; color: #1e7a3c; font-weight: 600; text-align: center;">✅ Текст скопирован в буфер обмена!</p>
+        </div>
 
-          <label class="form__field">
-            <span>Ваше имя</span>
-            <input type="text" name="client_name" placeholder="Анна" autocomplete="name">
-          </label>
-
-          <label class="form__field">
-            <span>Что нужно сделать?</span>
-            <select name="service">
-              <option>Ванная под ключ</option>
-              <option>Кухонный фартук</option>
-              <option>Напольная плитка</option>
-              <option>Крупный формат</option>
-              <option>Другое</option>
-            </select>
-          </label>
-
-          <label class="form__field">
-            <span>Комментарий (необязательно)</span>
-            <textarea name="message" placeholder="Площадь, сроки, пожелания..."></textarea>
-          </label>
-
-          <button type="button" class="btn btn--primary btn--full" id="sendWa">Отправить в WhatsApp</button>
-          <button type="button" class="btn btn--primary btn--full" id="sendTg">Отправить в Telegram</button>
-          <p class="form__note">Откроется чат с нами, а текст сообщения будет уже готов</p>
-
-          <!-- Подсказка для Telegram: появляется после нажатия кнопки -->
-          <p class="form__success" id="msgHint" hidden>📋 Текст скопирован. Вставьте его в чат Telegram и отправьте.</p>
-        </form>
       </div>
     </section>
+
   </main>
 
   <!-- ==================== ПОДВАЛ ==================== -->
