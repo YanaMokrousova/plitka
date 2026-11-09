@@ -469,7 +469,7 @@ button, input, select, textarea { font: inherit; }
 .slider__dot.is-active { width: 28px; background: var(--c-accent); } /* активная точка вытягивается */
 
 /* =========================================================
-   12. КОНТАКТЫ И ФОРМА
+   12. КОНТАКТЫ И ШАБЛОН СООБЩЕНИЯ
    ========================================================= */
 .contacts__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
 .contacts__list { display: grid; gap: 18px; margin: 32px 0; }
@@ -485,51 +485,34 @@ button, input, select, textarea { font: inherit; }
   transition: transform .2s, opacity .2s;
 }
 .messenger:hover { transform: translateY(-2px); opacity: .9; }
-.messenger--wa { background: #25d366; }
 .messenger--tg { background: #2aabee; }
+.messenger--phone { background: var(--c-dark); } /* Новый стиль для кнопки звонка */
 
-.form {
+/* Стили для нового блока шаблона (вместо старой формы) */
+.template-box {
   display: grid; gap: 18px;
   padding: 40px;
   border-radius: 24px;
   background: #fff;
   box-shadow: var(--shadow);
 }
-.form__title { font-family: var(--font-head); font-size: 22px; font-weight: 500; color: var(--c-dark); }
-.form__field { display: grid; gap: 6px; }
-.form__field span { font-size: 14px; font-weight: 600; color: var(--c-dark); }
-.form__field input,
-.form__field select,
-.form__field textarea {
+.template-text {
   width: 100%;
+  min-height: 160px;
   padding: 14px 16px;
   border: 1.5px solid var(--c-line);
   border-radius: 12px;
   background: var(--c-bg);
   color: var(--c-dark);
-  font-size: 16px;   /* важно: при 16px iPhone НЕ приближает экран при вводе */
+  font-size: 16px;
+  font-family: var(--font-body);
+  line-height: 1.5;
+  resize: vertical;
   outline: none;
   transition: border-color .2s, background .2s;
 }
-.form__field textarea { min-height: 100px; resize: vertical; }
-.form__field input:focus,
-.form__field select:focus,
-.form__field textarea:focus { border-color: var(--c-accent); background: #fff; }
+.template-text:focus { border-color: var(--c-accent); background: #fff; }
 
-/* Ошибки */
-.form__error { display: none; font-size: 13px; color: #d93025; }
-.form__field.is-error input { border-color: #d93025; }
-.form__field.is-error .form__error { display: block; }
-
-.form__note { font-size: 12px; color: var(--c-muted); text-align: center; }
-.form__success {
-  padding: 16px;
-  border-radius: 12px;
-  background: #e7f6ec;
-  color: #1e7a3c;
-  font-weight: 600;
-  text-align: center;
-}
 
 /* =========================================================
    13. ПОДВАЛ И ПЛАВАЮЩАЯ КНОПКА
