@@ -1,29 +1,53 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <!-- Кодировка: чтобы русские буквы отображались правильно -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Укладка плитки в Сочи — мастер Максим</title>
-  <meta name="description" content="Укладка плитки и керамогранита в Сочи: ванные, санузлы, кухни, полы. Бесплатный расчёт стоимости по фото.">
+  <!-- Без этой строки сайт на телефоне будет «мелким», как на компьютере -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Название вкладки и описание для Яндекса/Google -->
+  <title>Ровный шов — укладка плитки под ключ</title>
+  <meta name="description" content="Укладка плитки и керамогранита: ванные, кухни, полы. Два мастера, гарантия 3 года, бесплатный расчёт.">
+
+  <!-- Шрифты Google: Unbounded для заголовков, Manrope для текста (оба с кириллицей) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Подключаем наш файл стилей -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Маленький скрипт: помечает, что JS работает (нужно для анимаций появления) -->
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
-  <!-- Шапка -->
-  <header class="header">
+  <!-- ==================== ШАПКА ==================== -->
+  <header class="header" id="header">
     <div class="container header__inner">
-      <a href="#top" class="logo">Плитка<span>Сочи</span></a>
 
+      <!-- Логотип: квадратик-плитка + название -->
+      <a href="#top" class="logo">
+        <span class="logo__mark"></span>
+        Ровный<b>шов</b>
+      </a>
+
+      <!-- Меню. На телефоне оно прячется и выезжает по кнопке-бургеру -->
       <nav class="nav" id="nav">
-        <a href="#services">Услуги</a>
-        <a href="#prices">Цены</a>
-        <a href="#works">Работы</a>
-        <a href="#steps">Как я работаю</a>
-        <a href="#contacts">Контакты</a>
+        <a href="#about" class="nav__link">О нас</a>
+        <a href="#services" class="nav__link">Услуги</a>
+        <a href="#portfolio" class="nav__link">Работы</a>
+        <a href="#reviews" class="nav__link">Отзывы</a>
+        <a href="#contacts" class="nav__link">Контакты</a>
+        <!-- Эта кнопка видна только в мобильном меню -->
+        <a href="tel:+79990000000" class="btn btn--primary nav__cta">Позвонить</a>
       </nav>
 
-      <a href="tel:+79000000000" class="header__phone">+7 900 000-00-00</a>
+      <!-- Телефон в шапке (на компьютере) -->
+      <a href="tel:+79990000000" class="header__phone">+7 (999) 000-00-00</a>
 
+      <!-- Кнопка-бургер (три полоски), видна только на телефоне -->
       <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -32,182 +56,403 @@
 
   <main id="top">
 
-    <!-- Первый экран -->
+    <!-- ==================== ПЕРВЫЙ ЭКРАН (HERO) ==================== -->
     <section class="hero">
-      <div class="container">
-        <h1>Укладка плитки и керамогранита в Сочи</h1>
-        <p class="hero__text">
-          Ванные комнаты, санузлы, кухни, полы и балконы. Ровно, аккуратно и в срок.
-          Бесплатный расчёт по фото.
-        </p>
-        <div class="hero__buttons">
-          <a href="tel:+79000000000" class="btn btn--primary">📞 Позвонить</a>
-          <a href="#contacts" class="btn btn--light">Узнать стоимость</a>
-        </div>
-        <ul class="hero__facts">
-          <li><b>10+ лет</b> опыта</li>
-          <li><b>Гарантия</b> на работу</li>
-          <li><b>Все районы</b> Сочи</li>
-        </ul>
-      </div>
-    </section>
+      <div class="container hero__inner">
 
-    <!-- Услуги -->
-    <section id="services" class="section">
-      <div class="container">
-        <h2>Услуги</h2>
-        <div class="cards">
-          <div class="card">
-            <div class="card__icon">🛁</div>
-            <h3>Ванная и санузел</h3>
-            <p>Стены и пол под ключ, гидроизоляция, короба, ниши, подрезка под 45°.</p>
+        <!-- Левая часть: текст -->
+        <div class="hero__content reveal">
+          <p class="eyebrow">Укладка плитки в Сочи</p>
+          <h1 class="hero__title">
+            Укладываем плитку <span class="accent">идеально ровно</span> — с гарантией
+          </h1>
+          <p class="hero__text">
+            Ванные комнаты, кухни и полы под ключ. Работаем вдвоём, без случайных
+            бригад: ровные швы, аккуратная подрезка и чистота после себя.
+          </p>
+
+          <!-- Кнопки-призывы -->
+          <div class="hero__actions">
+            <a href="#contacts" class="btn btn--primary">Рассчитать стоимость</a>
+            <a href="#portfolio" class="btn btn--ghost">Смотреть работы</a>
           </div>
-          <div class="card">
-            <div class="card__icon">🍳</div>
-            <h3>Кухня</h3>
-            <p>Фартук из плитки, укладка пола на кухне, вырезы под розетки.</p>
-          </div>
-          <div class="card">
-            <div class="card__icon">🏠</div>
-            <h3>Полы</h3>
-            <p>Керамогранит, в том числе крупный формат 60×120 и больше. Выравнивание основания.</p>
-          </div>
-          <div class="card">
-            <div class="card__icon">🌿</div>
-            <h3>Балконы и террасы</h3>
-            <p>Морозостойкая плитка, уклоны для стока воды, ступени.</p>
-          </div>
-          <div class="card">
-            <div class="card__icon">🔨</div>
-            <h3>Демонтаж</h3>
-            <p>Снятие старой плитки, подготовка стен и пола к укладке.</p>
-          </div>
-          <div class="card">
-            <div class="card__icon">✨</div>
-            <h3>Затирка и мелкий ремонт</h3>
-            <p>Обновление швов, замена отдельных плиток, эпоксидная затирка.</p>
-          </div>
+
+          <!-- Цифры. data-count — до какого числа «досчитать» анимации -->
+          <ul class="hero__stats">
+            <li><strong data-count="12">12</strong><span>лет опыта</span></li>
+            <li><strong data-count="350" data-suffix="+">350+</strong><span>объектов</span></li>
+            <li><strong data-count="3">3</strong><span>года гарантии</span></li>
+          </ul>
+        </div>
+
+        <!-- Правая часть: картинка-композиция.
+             Чтобы поставить фото, вставьте внутрь блока:
+             <img src="images/hero.jpg" alt="Ванная, выложенная плиткой"> -->
+        <div class="hero__visual reveal">
+          <div class="hero__tile hero__tile--big photo tile-marble"></div>
+          <div class="hero__tile hero__tile--small photo tile-checker"></div>
+          <div class="hero__badge">⭐ 4.9 — средняя оценка клиентов</div>
         </div>
       </div>
     </section>
 
-    <!-- Цены -->
-    <section id="prices" class="section section--gray">
+    <!-- ==================== О НАС (ДВА МАСТЕРА) ==================== -->
+    <section class="section about" id="about">
       <div class="container">
-        <h2>Цены</h2>
-        <p class="section__lead">Точная стоимость зависит от площади, формата плитки и состояния основания. Расчёт бесплатный.</p>
-        <div class="table-wrap">
-          <table class="prices">
-            <thead>
-              <tr><th>Работа</th><th>Цена</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Укладка плитки на стены</td><td>от 1 500 ₽/м²</td></tr>
-              <tr><td>Укладка плитки на пол</td><td>от 1 300 ₽/м²</td></tr>
-              <tr><td>Керамогранит крупного формата (от 60×120)</td><td>от 2 000 ₽/м²</td></tr>
-              <tr><td>Фартук на кухне</td><td>от 1 800 ₽/м²</td></tr>
-              <tr><td>Гидроизоляция</td><td>от 400 ₽/м²</td></tr>
-              <tr><td>Демонтаж старой плитки</td><td>от 300 ₽/м²</td></tr>
-              <tr><td>Запил под 45°</td><td>от 600 ₽/п.м.</td></tr>
-            </tbody>
-          </table>
+
+        <div class="section__head reveal">
+          <p class="eyebrow">О нас</p>
+          <h2 class="section__title">Два мастера — один стандарт качества</h2>
+          <p class="section__text">
+            Мы не перекупаем заказы и не отдаём их субподрядчикам.
+            Каждый объект ведём лично: от замера до финальной затирки.
+          </p>
+        </div>
+
+        <div class="about__grid">
+          <!-- Мастер №1 -->
+          <article class="master reveal">
+            <!-- Фото мастера: вставьте сюда <img src="images/master-1.jpg" alt="Максим">
+                 и удалите строку с инициалами -->
+            <div class="master__photo photo tile-grid">
+              <span class="master__initials">М</span>
+            </div>
+            <div class="master__body">
+              <h3 class="master__name">Максим</h3>
+              <p class="master__role">Старший мастер · 14 лет опыта</p>
+              <p class="master__text">
+                Специализируется на крупноформатном керамограните и сложной геометрии.
+                Всегда делает раскладку заранее, поэтому подрезки получаются симметричными.
+              </p>
+              <ul class="master__skills">
+                <li>Крупный формат</li>
+                <li>Запил под 45°</li>
+                <li>Скрытые люки</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Мастер №2 -->
+          <article class="master reveal">
+            <!-- Фото мастера: вставьте сюда <img src="images/master-2.jpg" alt="Илья">
+                 и удалите строку с инициалами -->
+            <div class="master__photo photo tile-mosaic">
+              <span class="master__initials">И</span>
+            </div>
+            <div class="master__body">
+              <h3 class="master__name">Илья</h3>
+              <p class="master__role">Мастер-плиточник · 9 лет опыта</p>
+              <p class="master__text">
+                Мозаика, душевые с трапом и всё, где важна гидроизоляция.
+                Спокойный и дотошный: переделывать за ним никому не приходилось.
+              </p>
+              <ul class="master__skills">
+                <li>Мозаика</li>
+                <li>Душевые с трапом</li>
+                <li>Гидроизоляция</li>
+              </ul>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Работы -->
-    <section id="works" class="section">
+    <!-- ==================== УСЛУГИ ==================== -->
+    <section class="section services" id="services">
       <div class="container">
-        <h2>Мои работы</h2>
-        <div class="gallery">
-          <figure><img src="img/work-1.jpg" alt="Ванная комната, плитка на стенах и полу" loading="lazy"><figcaption>Ванная, Центральный район</figcaption></figure>
-          <figure><img src="img/work-2.jpg" alt="Санузел под ключ" loading="lazy"><figcaption>Санузел под ключ</figcaption></figure>
-          <figure><img src="img/work-3.jpg" alt="Керамогранит на полу" loading="lazy"><figcaption>Керамогранит 60×120</figcaption></figure>
-          <figure><img src="img/work-4.jpg" alt="Кухонный фартук из плитки" loading="lazy"><figcaption>Фартук на кухне</figcaption></figure>
-          <figure><img src="img/work-5.jpg" alt="Плитка на балконе" loading="lazy"><figcaption>Балкон, Адлер</figcaption></figure>
-          <figure><img src="img/work-6.jpg" alt="Душевая зона с нишей" loading="lazy"><figcaption>Душевая с нишей</figcaption></figure>
+
+        <div class="section__head reveal">
+          <p class="eyebrow">Услуги</p>
+          <h2 class="section__title">Что мы делаем</h2>
+          <p class="section__text">Цены ориентировочные. Точную стоимость назовём после замера, и она не изменится в процессе.</p>
+        </div>
+
+        <!-- Сетка карточек: сама перестраивается под ширину экрана -->
+        <div class="services__grid">
+          <article class="service reveal">
+            <span class="service__num">01</span>
+            <h3 class="service__title">Ванная под ключ</h3>
+            <p class="service__text">Демонтаж, выравнивание стен, гидроизоляция, укладка и затирка. Один подрядчик на весь процесс.</p>
+            <p class="service__price">от 2 000 ₽/м²</p>
+          </article>
+
+          <article class="service reveal">
+            <span class="service__num">02</span>
+            <h3 class="service__title">Кухонный фартук</h3>
+            <p class="service__text">«Кабанчик», керамогранит, мозаика. Аккуратно обходим розетки и выводы.</p>
+            <p class="service__price">от 1 800 ₽/м²</p>
+          </article>
+
+          <article class="service reveal">
+            <span class="service__num">03</span>
+            <h3 class="service__title">Напольная плитка</h3>
+            <p class="service__text">Укладка на систему выравнивания: никаких «ступенек» между плитками.</p>
+            <p class="service__price">от 1 500 ₽/м²</p>
+          </article>
+
+          <article class="service reveal">
+            <span class="service__num">04</span>
+            <h3 class="service__title">Крупный формат</h3>
+            <p class="service__text">Керамогранит 60×120, 120×240 и больше. Специальный инструмент и опыт.</p>
+            <p class="service__price">от 2 500 ₽/м²</p>
+          </article>
+
+          <article class="service reveal">
+            <span class="service__num">05</span>
+            <h3 class="service__title">Мозаика и узоры</h3>
+            <p class="service__text">Панно, ёлочка, сложные раскладки, которые превращают ванную в дизайнерскую.</p>
+            <p class="service__price">от 3 000 ₽/м²</p>
+          </article>
+
+          <article class="service reveal">
+            <span class="service__num">06</span>
+            <h3 class="service__title">Затирка и ремонт швов</h3>
+            <p class="service__text">Обновим потемневшие швы, заменим треснувшую плитку, переклеим отвалившуюся.</p>
+            <p class="service__price">от 500 ₽/м²</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Почему я -->
-    <section class="section section--gray">
+    <!-- ==================== ПОРТФОЛИО ==================== -->
+    <section class="section portfolio" id="portfolio">
       <div class="container">
-        <h2>Почему мне доверяют</h2>
-        <ul class="benefits">
-          <li><b>Работаю сам.</b> Никаких бригад «с улицы», за качество отвечаю лично.</li>
-          <li><b>Цена не меняется.</b> Стоимость обговариваем заранее, без сюрпризов в конце.</li>
-          <li><b>Чистота.</b> После работы убираю за собой мусор и пыль.</li>
-          <li><b>Помогу с выбором.</b> Подскажу, сколько плитки и материалов купить, чтобы не переплатить.</li>
-        </ul>
-      </div>
-    </section>
 
-    <!-- Этапы -->
-    <section id="steps" class="section">
-      <div class="container">
-        <h2>Как я работаю</h2>
-        <ol class="steps">
-          <li><span>1</span><div><b>Вы пишете или звоните</b><p>Присылаете размеры и фото помещения.</p></div></li>
-          <li><span>2</span><div><b>Я считаю стоимость</b><p>Называю цену и сроки, при необходимости приезжаю на замер.</p></div></li>
-          <li><span>3</span><div><b>Выполняю работу</b><p>В оговорённые сроки, с соблюдением технологии.</p></div></li>
-          <li><span>4</span><div><b>Вы принимаете результат</b><p>Оплата после приёмки работы.</p></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Контакты и расчёт -->
-    <section id="contacts" class="section section--gray">
-      <div class="container">
-        <h2>Узнайте стоимость работ</h2>
-        <p class="section__lead">Позвоните или напишите, расчёт бесплатный.</p>
-
-        <div class="contacts__buttons">
-          <a href="tel:+79000000000" class="btn btn--primary">📞 Позвонить: +7 900 000-00-00</a>
-          <a href="https://max.ru/ССЫЛКА_НА_ПРОФИЛЬ" class="btn" target="_blank" rel="noopener">💬 Написать в MAX</a>
-          <a href="mailto:ПОЧТА@yandex.ru" class="btn">✉️ Написать на почту</a>
+        <div class="section__head reveal">
+          <p class="eyebrow">Портфолио</p>
+          <h2 class="section__title">Наши работы</h2>
+          <p class="section__text">Несколько последних объектов: что делали, сколько метров и за какой срок.</p>
         </div>
 
-        <div class="estimate">
-          <h3>Чтобы сразу назвать цену, напишите:</h3>
-          <ol>
-            <li><b>Помещение:</b> ванная, санузел, кухня, пол в комнате, балкон</li>
-            <li><b>Площадь</b> в м² или размеры: длина × ширина (и высота, если стены)</li>
-            <li><b>Размер плитки</b> (например, 30×60 или 60×120) и куплена ли она</li>
-            <li><b>Нужен ли демонтаж</b> старой плитки и выравнивание стен или пола</li>
-            <li><b>Район</b> Сочи</li>
-            <li><b>Когда</b> хотите начать</li>
-            <li><b>2–3 фото</b> помещения</li>
-          </ol>
+        <!-- Кнопки фильтра. data-filter должен совпадать с data-category у карточек -->
+        <div class="filters">
+          <button class="filter is-active" data-filter="all">Все</button>
+          <button class="filter" data-filter="bath">Ванные</button>
+          <button class="filter" data-filter="kitchen">Кухни</button>
+          <button class="filter" data-filter="floor">Полы</button>
+        </div>
 
-          <p class="estimate__hint">Можно скопировать шаблон и вставить в сообщение:</p>
-          <pre class="estimate__template" id="estimate-template">Здравствуйте! Хочу рассчитать стоимость укладки плитки.
-Помещение:
-Площадь:
-Размер плитки:
-Плитка куплена: да / нет
-Демонтаж старой плитки: да / нет
-Район:
-Когда начать:
-Фото прикладываю.</pre>
-          <button type="button" class="btn" id="copy-template">📋 Скопировать шаблон</button>
+        <div class="portfolio__grid">
+          <!-- Работа 1. Чтобы поставить фото: <img src="images/work-1.jpg" alt="..."> внутрь .work__photo -->
+          <article class="work reveal" data-category="bath">
+            <div class="work__photo photo tile-marble">
+              <span class="work__tag">Ванная</span>
+            </div>
+            <div class="work__body">
+              <h3 class="work__title">Ванная в новостройке</h3>
+              <p class="work__text">Керамогранит 60×120 «под мрамор», запил 45° на углах, скрытый люк под ванной.</p>
+              <ul class="work__meta"><li>5 м²</li><li>10 дней</li></ul>
+            </div>
+          </article>
+
+          <!-- Работа 2 -->
+          <article class="work reveal" data-category="kitchen">
+            <div class="work__photo photo tile-grid">
+              <span class="work__tag">Кухня</span>
+            </div>
+            <div class="work__body">
+              <h3 class="work__title">Фартук «кабанчик»</h3>
+              <p class="work__text">Классика 7,5×15 со смещением, белая затирка, ровные подрезки вокруг розеток.</p>
+              <ul class="work__meta"><li>4 м²</li><li>2 дня</li></ul>
+            </div>
+          </article>
+
+          <!-- Работа 3 -->
+          <article class="work reveal" data-category="floor">
+            <div class="work__photo photo tile-checker">
+              <span class="work__tag">Пол</span>
+            </div>
+            <div class="work__body">
+              <h3 class="work__title">Пол в прихожей и кухне</h3>
+              <p class="work__text">Керамогранит 60×60 на систему выравнивания, перепад между плитками 0 мм.</p>
+              <ul class="work__meta"><li>18 м²</li><li>4 дня</li></ul>
+            </div>
+          </article>
+
+          <!-- Работа 4 -->
+          <article class="work reveal" data-category="bath">
+            <div class="work__photo photo tile-mosaic">
+              <span class="work__tag">Ванная</span>
+            </div>
+            <div class="work__body">
+              <h3 class="work__title">Душевая без поддона</h3>
+              <p class="work__text">Трап в полу, уклон к сливу, гидроизоляция в 2 слоя, мозаика на стенах.</p>
+              <ul class="work__meta"><li>3 м²</li><li>7 дней</li></ul>
+            </div>
+          </article>
+
+          <!-- Работа 5 -->
+          <article class="work reveal" data-category="floor">
+            <div class="work__photo photo tile-diagonal">
+              <span class="work__tag">Пол</span>
+            </div>
+            <div class="work__body">
+              <h3 class="work__title">Терраса загородного дома</h3>
+              <p class="work__text">Морозостойкий клинкер, уличная укладка с уклоном для отвода воды.</p>
+              <ul class="work__meta"><li>24 м²</li><li>5 дней</li></ul>
+            </div>
+          </article>
+
+          <!-- Работа 6 -->
+          <article class="work reveal" data-category="kitchen">
+            <div class="work__photo photo tile-marble">
+              <span class="work__tag">Кухня</span>
+            </div>
+            <div class="work__body">
+              <h3 class="work__title">Кухня-гостиная: пол + фартук</h3>
+              <p class="work__text">Крупный формат на полу и фартук из той же коллекции с единым рисунком.</p>
+              <ul class="work__meta"><li>30 м²</li><li>8 дней</li></ul>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
+    <!-- ==================== ОТЗЫВЫ (СЛАЙДЕР) ==================== -->
+    <section class="section reviews" id="reviews">
+      <div class="container">
+
+        <div class="section__head reveal">
+          <p class="eyebrow">Отзывы</p>
+          <h2 class="section__title">Что говорят клиенты</h2>
+        </div>
+
+        <div class="slider reveal">
+          <!-- Лента отзывов. Листается пальцем, мышкой и стрелками -->
+          <div class="slider__track" id="sliderTrack">
+
+            <article class="review">
+              <div class="review__stars">★★★★★</div>
+              <p class="review__text">«Делали ванную под ключ. Ребята сами посчитали материал, лишнего не купили. Швы как по линейке, через полгода всё идеально.»</p>
+              <div class="review__author">
+                <span class="review__avatar">МС</span>
+                <div><b>Мария С.</b><small>Ванная, 5 м²</small></div>
+              </div>
+            </article>
+
+            <article class="review">
+              <div class="review__stars">★★★★★</div>
+              <p class="review__text">«Двое других мастеров отказались от плитки 120×60, а Максим взялся и сделал. Пол ровный, как стекло.»</p>
+              <div class="review__author">
+                <span class="review__avatar">ИП</span>
+                <div><b>Игорь П.</b><small>Пол, 22 м²</small></div>
+              </div>
+            </article>
+
+            <article class="review">
+              <div class="review__stars">★★★★★</div>
+              <p class="review__text">«Очень аккуратные. Каждый день убирали за собой, мебель накрыли плёнкой. Фартук сделали за 2 дня.»</p>
+              <div class="review__author">
+                <span class="review__avatar">ЕК</span>
+                <div><b>Елена К.</b><small>Кухонный фартук</small></div>
+              </div>
+            </article>
+
+            <article class="review">
+              <div class="review__stars">★★★★★</div>
+              <p class="review__text">«Душевая с трапом: боялся протечек, но Илья всё объяснил и показал тест гидроизоляции. Год прошёл, всё сухо.»</p>
+              <div class="review__author">
+                <span class="review__avatar">АН</span>
+                <div><b>Андрей Н.</b><small>Душевая, 3 м²</small></div>
+              </div>
+            </article>
+
+            <article class="review">
+              <div class="review__stars">★★★★★</div>
+              <p class="review__text">«Цену назвали после замера, и она не поменялась. Редкость в наше время. Буду рекомендовать друзьям.»</p>
+              <div class="review__author">
+                <span class="review__avatar">ОВ</span>
+                <div><b>Ольга В.</b><small>Ванная + туалет</small></div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Управление: стрелки и точки (точки создаёт JS автоматически) -->
+          <div class="slider__controls">
+            <button class="slider__btn" id="prevBtn" aria-label="Предыдущий отзыв">←</button>
+            <div class="slider__dots" id="sliderDots"></div>
+            <button class="slider__btn" id="nextBtn" aria-label="Следующий отзыв">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== КОНТАКТЫ + ШАБЛОН СООБЩЕНИЯ ==================== -->
+    <section class="section contacts" id="contacts">
+      <div class="container contacts__inner">
+
+        <!-- Левая колонка: контакты -->
+        <div class="contacts__info reveal">
+          <p class="eyebrow">Контакты</p>
+          <h2 class="section__title">Посчитаем стоимость бесплатно</h2>
+          <p class="section__text">Пришлите размеры и фото помещения в мессенджер, и мы ответим в течение часа. Или заполните короткий шаблон, и сообщение само отправится нам в WhatsApp или Telegram.</p>
+
+          <ul class="contacts__list">
+            <li><span>Телефон</span><a href="tel:+79990000000">+7 (999) 000-00-00</a></li>
+            <li><span>Время работы</span><p>Ежедневно, 9:00–21:00</p></li>
+            <li><span>Где работаем</span><p>Сочи и окрестности</p></li>
+          </ul>
+
+          <!-- Кнопки мессенджеров: замените номер и имя пользователя на настоящие -->
+          <div class="messengers">
+            <a href="https://wa.me/79990000000" class="messenger messenger--wa" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="https://t.me/username" class="messenger messenger--tg" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </div>
+
+        <!-- Правая колонка: шаблон сообщения (вместо формы заявки).
+             Клиент заполняет поля, нажимает кнопку, и готовый текст уходит вам в личку. -->
+        <form class="form reveal" id="msgForm" novalidate>
+          <h3 class="form__title">Напишите нам</h3>
+
+          <label class="form__field">
+            <span>Ваше имя</span>
+            <input type="text" name="client_name" placeholder="Анна" autocomplete="name">
+          </label>
+
+          <label class="form__field">
+            <span>Что нужно сделать?</span>
+            <select name="service">
+              <option>Ванная под ключ</option>
+              <option>Кухонный фартук</option>
+              <option>Напольная плитка</option>
+              <option>Крупный формат</option>
+              <option>Другое</option>
+            </select>
+          </label>
+
+          <label class="form__field">
+            <span>Комментарий (необязательно)</span>
+            <textarea name="message" placeholder="Площадь, сроки, пожелания..."></textarea>
+          </label>
+
+          <button type="button" class="btn btn--primary btn--full" id="sendWa">Отправить в WhatsApp</button>
+          <button type="button" class="btn btn--primary btn--full" id="sendTg">Отправить в Telegram</button>
+          <p class="form__note">Откроется чат с нами, а текст сообщения будет уже готов</p>
+
+          <!-- Подсказка для Telegram: появляется после нажатия кнопки -->
+          <p class="form__success" id="msgHint" hidden>📋 Текст скопирован. Вставьте его в чат Telegram и отправьте.</p>
+        </form>
+      </div>
+    </section>
   </main>
 
-  <!-- Подвал -->
+  <!-- ==================== ПОДВАЛ ==================== -->
   <footer class="footer">
     <div class="container footer__inner">
-      <p>© <span id="year"></span> Укладка плитки в Сочи, мастер Максим</p>
-      <a href="tel:+79000000000">+7 900 000-00-00</a>
+      <a href="#top" class="logo"><span class="logo__mark"></span>Ровный<b>шов</b></a>
+      <p>© <span id="year"></span> Укладка плитки. Все права защищены.</p>
     </div>
   </footer>
 
   <!-- Плавающая кнопка звонка (только на телефоне) -->
-  <a href="tel:+79000000000" class="fab" aria-label="Позвонить">📞</a>
+  <a href="tel:+79990000000" class="call-float" aria-label="Позвонить">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+      <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/>
+    </svg>
+  </a>
 
+  <!-- Подключаем JavaScript в самом конце, когда вся страница уже загружена -->
   <script src="script.js"></script>
 </body>
 </html>
