@@ -173,26 +173,33 @@ window.addEventListener('resize', () => {
 buildDots();
 
 /* =========================================================
-   7. ШАБЛОН СООБЩЕНИЯ: отправка в WhatsApp / Telegram
+   7. ШАБЛОН СООБЩЕНИЯ: копирование текста
    ========================================================= */
-const PHONE = '79990000000';  // ваш номер: только цифры, без +, пробелов и скобок
-const TG_USER = 'username';   // ваш ник в Telegram без @
+const copyBtn = document.getElementById('copyTemplateBtn');
+const templateText = document.getElementById('msgTemplate');
+const copyHint = document.getElementById('copyHint');
 
-const msgForm = document.getElementById('msgForm');
-const msgHint = document.getElementById('msgHint');
-
-// Собираем текст сообщения из того, что заполнил клиент
-function buildMessage() {
-  const name = msgForm.elements.client_name.value.trim();
-  const service = msgForm.elements.service.value;
-  const comment = msgForm.elements.message.value.trim();
-
-  let text = 'Здравствуйте!';
-  if (name) text += ' Меня зовут ' + name + '.';
-  text += '\nИнтересует: ' + service + '.';
-  if (comment) text += '\nПодробности: ' + comment;
-  return text;
+if (copyBtn && templateText) {
+  copyBtn.addEventListener('click', () => {
+    // Выделяем текст (нужно для некоторых мобильных браузеров)
+    templateText.select();
+    templateText.setSelectionRange(0, 99999); 
+    
+    // Копируем в буфер обмена
+    navigator.clipboard.writeText(templateText.value).then(() => {
+      // Показываем сообщение об успехе
+      copyHint.hidden = false;
+      setTimeout(() => { copyHint.hidden = true; }, 3000);
+    }).catch(err => {
+      console.error('Не удалось скопировать текст: ', err);
+      // Фолбэк для очень старых браузеров
+      document.execCommand('copy');
+      copyHint.hidden = false;
+      setTimeout(() => { copyHint.hidden = true; }, 3000);
+    });
+  });
 }
+
 
 // Чтобы страница не перезагружалась при нажатии Enter
 msgForm.addEventListener('submit', (event) => event.preventDefault());
