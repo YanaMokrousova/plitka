@@ -1,76 +1,105 @@
-/* 1. ШАПКА: фон при прокрутке */
+/* =========================================================
+   1. ШАПКА: добавляем фон, когда страницу прокрутили
+   ========================================================= */
 const header = document.getElementById('header');
-if (header) {
-  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 20);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
 
-/* 2. МОБИЛЬНОЕ МЕНЮ (бургер) */
+function handleHeaderScroll() {
+  // Если прокрутили больше 20px, добавляем класс is-scrolled
+  header.classList.toggle('is-scrolled', window.scrollY > 20);
+}
+window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+handleHeaderScroll(); // проверяем сразу при загрузке
+
+/* =========================================================
+   2. МОБИЛЬНОЕ МЕНЮ (бургер)
+   ========================================================= */
 const burger = document.getElementById('burger');
 const nav = document.getElementById('nav');
-if (burger && nav) {
-  function toggleMenu(forceOpen) {
-    const isOpen = typeof forceOpen === 'boolean' ? forceOpen : !nav.classList.contains('is-open');
-    nav.classList.toggle('is-open', isOpen);
-    burger.classList.toggle('is-active', isOpen);
-    if (header) header.classList.toggle('menu-open', isOpen);
-    burger.setAttribute('aria-expanded', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  }
-  burger.addEventListener('click', () => toggleMenu());
-  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+
+function toggleMenu(forceOpen) {
+  // Если передали true/false, используем его; иначе переключаем
+  const isOpen = typeof forceOpen === 'boolean' ? forceOpen : !nav.classList.contains('is-open');
+
+  nav.classList.toggle('is-open', isOpen);
+  burger.classList.toggle('is-active', isOpen);
+  header.classList.toggle('menu-open', isOpen);
+  burger.setAttribute('aria-expanded', isOpen);
+  // Пока меню открыто, страница под ним не прокручивается
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 }
 
-/* 3. ПЛАВНОЕ ПОЯВЛЕНИЕ БЛОКОВ */
+burger.addEventListener('click', () => toggleMenu());
+
+// При клике на пункт меню закрываем его
+nav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => toggleMenu(false));
+});
+
+/* =========================================================
+   3. ПЛАВНОЕ ПОЯВЛЕНИЕ БЛОКОВ ПРИ ПРОКРУТКЕ
+   ========================================================= */
 const revealElements = document.querySelectorAll('.reveal');
-if (revealElements.length) {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
 
-  revealElements.forEach(el => {
-    const index = [...el.parentElement.children].indexOf(el);
-    el.style.setProperty('--delay', `${(index % 3) * 0.12}s`);
-    revealObserver.observe(el);
+// IntersectionObserver «следит», когда элемент появился на экране
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target); // анимация только один раз
+    }
   });
-}
+}, { threshold: 0.15 }); // срабатывает, когда видно 15% элемента
 
-/* 4. СЧЁТЧИКИ ЦИФР */
+revealElements.forEach(el => {
+  // Небольшая задержка для соседних карточек: появляются «волной»
+  const index = [...el.parentElement.children].indexOf(el);
+  el.style.setProperty('--delay', `${(index % 3) * 0.12}s`);
+  revealObserver.observe(el);
+});
+
+/* =========================================================
+   4. СЧЁТЧИКИ ЦИФР (12 лет, 350+ объектов...)
+   ========================================================= */
 const counters = document.querySelectorAll('[data-count]');
-if (counters.length) {
-  const counterObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = Number(el.dataset.count);
-      const suffix = el.dataset.suffix || '';
-      const start = performance.now();
-      function tick(now) {
-        const progress = Math.min((now - start) / 1500, 1);
-        el.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3))) + suffix;
-        if (progress < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      counterObserver.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(c => counterObserver.observe(c));
-}
 
-/* 5. ФИЛЬТР ПОРТФОЛИО */
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    const el = entry.target;
+    const target = Number(el.dataset.count);   // до какого числа считаем
+    const suffix = el.dataset.suffix || '';    // например «+»
+    const duration = 1500;                     // длительность в миллисекундах
+    const start = performance.now();
+
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // замедление к концу
+      el.textContent = Math.round(target * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    counterObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+
+counters.forEach(counter => counterObserver.observe(counter));
+
+/* =========================================================
+   5. ФИЛЬТР ПОРТФОЛИО
+   ========================================================= */
 const filterButtons = document.querySelectorAll('.filter');
 const works = document.querySelectorAll('.work');
+
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
+    // Подсвечиваем нажатую кнопку
     filterButtons.forEach(btn => btn.classList.remove('is-active'));
     button.classList.add('is-active');
-    const filter = button.dataset.filter;
+
+    const filter = button.dataset.filter; // all / bath / kitchen / floor
+
+    // Показываем подходящие работы, остальные прячем
     works.forEach(work => {
       const show = filter === 'all' || work.dataset.category === filter;
       work.classList.toggle('is-hidden', !show);
@@ -78,118 +107,114 @@ filterButtons.forEach(button => {
   });
 });
 
-/* 6. СЛАЙДЕР ОТЗЫВОВ */
+/* =========================================================
+   6. СЛАЙДЕР ОТЗЫВОВ
+   ========================================================= */
 const track = document.getElementById('sliderTrack');
+const slides = track.querySelectorAll('.review');
 const dotsWrap = document.getElementById('sliderDots');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
-const slides = track ? track.querySelectorAll('.review') : [];
 
-if (track && slides.length) {
-  const getStep = () => slides[0].offsetWidth + (parseFloat(getComputedStyle(track).gap) || 0);
+// На сколько пикселей сдвигать за один шаг: ширина карточки + отступ
+function getStep() {
+  const gap = parseFloat(getComputedStyle(track).gap) || 0;
+  return slides[0].offsetWidth + gap;
+}
 
-  function updateDots() {
-    if (!dotsWrap) return;
-    const dots = dotsWrap.querySelectorAll('.slider__dot');
-    const index = Math.round(track.scrollLeft / getStep());
-    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === Math.min(index, dots.length - 1)));
+// Создаём точки. Их столько, сколько возможно «позиций» прокрутки
+function buildDots() {
+  dotsWrap.innerHTML = '';
+  const visible = Math.max(1, Math.round(track.clientWidth / getStep())); // сколько отзывов видно сразу
+  const count = Math.max(1, slides.length - visible + 1);
+
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'slider__dot';
+    dot.setAttribute('aria-label', `Перейти к отзыву ${i + 1}`);
+    dot.addEventListener('click', () => {
+      track.scrollTo({ left: i * getStep(), behavior: 'smooth' });
+    });
+    dotsWrap.appendChild(dot);
   }
-
-  function buildDots() {
-    if (!dotsWrap) return;
-    dotsWrap.innerHTML = '';
-    const visible = Math.max(1, Math.round(track.clientWidth / getStep()));
-    const count = Math.max(1, slides.length - visible + 1);
-    for (let i = 0; i < count; i++) {
-      const dot = document.createElement('button');
-      dot.className = 'slider__dot';
-      dot.setAttribute('aria-label', `Перейти к отзыву ${i + 1}`);
-      dot.addEventListener('click', () => track.scrollTo({ left: i * getStep(), behavior: 'smooth' }));
-      dotsWrap.appendChild(dot);
-    }
-    updateDots();
-  }
-
-  if (nextBtn) nextBtn.addEventListener('click', () => {
-    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
-    atEnd ? track.scrollTo({ left: 0, behavior: 'smooth' })
-          : track.scrollBy({ left: getStep(), behavior: 'smooth' });
-  });
-
-  if (prevBtn) prevBtn.addEventListener('click', () => {
-    track.scrollLeft <= 5 ? track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' })
-                          : track.scrollBy({ left: -getStep(), behavior: 'smooth' });
-  });
-
-  track.addEventListener('scroll', () => requestAnimationFrame(updateDots), { passive: true });
-
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(buildDots, 200);
-  });
-
-  buildDots();
+  updateDots();
 }
 
-/* 7. МАСКА ТЕЛЕФОНА */
-const phoneInput = document.getElementById('phone');
-if (phoneInput) {
-  phoneInput.addEventListener('input', () => {
-    let digits = phoneInput.value.replace(/\D/g, '');
-    if (digits === '') { phoneInput.value = ''; return; }
-    if (digits[0] === '8') digits = '7' + digits.slice(1);
-    if (digits[0] !== '7') digits = '7' + digits;
-    digits = digits.slice(0, 11);
-
-    let result = '+7';
-    if (digits.length > 1) result += ' (' + digits.slice(1, 4);
-    if (digits.length > 4) result += ') ' + digits.slice(4, 7);
-    if (digits.length > 7) result += '-' + digits.slice(7, 9);
-    if (digits.length > 9) result += '-' + digits.slice(9, 11);
-    phoneInput.value = result;
-  });
+// Подсвечиваем активную точку
+function updateDots() {
+  const dots = dotsWrap.querySelectorAll('.slider__dot');
+  const index = Math.round(track.scrollLeft / getStep());
+  dots.forEach((dot, i) => dot.classList.toggle('is-active', i === Math.min(index, dots.length - 1)));
 }
 
-/* 8. ФОРМА ЗАЯВКИ */
-const form = document.getElementById('leadForm');
-if (form) {
-  const nameInput = form.querySelector('[name="client_name"]');
-  const successMessage = document.getElementById('formSuccess');
+// Стрелка «вперёд»: в конце возвращаемся к началу
+nextBtn.addEventListener('click', () => {
+  const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
+  atEnd ? track.scrollTo({ left: 0, behavior: 'smooth' })
+        : track.scrollBy({ left: getStep(), behavior: 'smooth' });
+});
 
-  const setError = (input, hasError) => {
-    const field = input && input.closest('.form__field');
-    if (field) field.classList.toggle('is-error', hasError);
-  };
+// Стрелка «назад»: в начале переходим в конец
+prevBtn.addEventListener('click', () => {
+  const atStart = track.scrollLeft <= 5;
+  atStart ? track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' })
+          : track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+});
 
-  [nameInput, phoneInput].forEach(input => {
-    if (input) input.addEventListener('input', () => setError(input, false));
-  });
+track.addEventListener('scroll', () => requestAnimationFrame(updateDots), { passive: true });
 
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    const nameOk = !nameInput || nameInput.value.trim().length >= 2;
-    const phoneOk = !phoneInput || phoneInput.value.replace(/\D/g, '').length === 11;
-    setError(nameInput, !nameOk);
-    setError(phoneInput, !phoneOk);
-    if (!nameOk || !phoneOk) return;
+// При изменении размера окна (поворот телефона) пересобираем точки
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(buildDots, 200);
+});
 
-    // ДЕМО-РЕЖИМ: имитация отправки
-    const button = form.querySelector('button[type="submit"]');
-    const buttonText = button ? button.textContent : '';
-    if (button) { button.disabled = true; button.textContent = 'Отправляем...'; }
+buildDots();
 
-    setTimeout(() => {
-      form.reset();
-      if (button) { button.disabled = false; button.textContent = buttonText; }
-      if (successMessage) {
-        successMessage.hidden = false;
-        setTimeout(() => (successMessage.hidden = true), 6000);
-      }
-    }, 900);
-  });
+/* =========================================================
+   7. ШАБЛОН СООБЩЕНИЯ: отправка в WhatsApp / Telegram
+   ========================================================= */
+const PHONE = '79990000000';  // ваш номер: только цифры, без +, пробелов и скобок
+const TG_USER = 'username';   // ваш ник в Telegram без @
+
+const msgForm = document.getElementById('msgForm');
+const msgHint = document.getElementById('msgHint');
+
+// Собираем текст сообщения из того, что заполнил клиент
+function buildMessage() {
+  const name = msgForm.elements.client_name.value.trim();
+  const service = msgForm.elements.service.value;
+  const comment = msgForm.elements.message.value.trim();
+
+  let text = 'Здравствуйте!';
+  if (name) text += ' Меня зовут ' + name + '.';
+  text += '\nИнтересует: ' + service + '.';
+  if (comment) text += '\nПодробности: ' + comment;
+  return text;
 }
 
-/* 9. ТЕКУЩИЙ ГОД В ПОДВАЛЕ */
-const yearEl = document.getElementById('year');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+// Чтобы страница не перезагружалась при нажатии Enter
+msgForm.addEventListener('submit', (event) => event.preventDefault());
+
+// WhatsApp: открывается чат с вашим номером, текст уже вставлен
+document.getElementById('sendWa').addEventListener('click', () => {
+  const text = encodeURIComponent(buildMessage());
+  window.open(`https://wa.me/${PHONE}?text=${text}`, '_blank');
+});
+
+// Telegram: не умеет сам вставлять текст в личный чат,
+// поэтому копируем текст и открываем чат: клиенту остаётся нажать «Вставить»
+document.getElementById('sendTg').addEventListener('click', () => {
+  const text = buildMessage();
+  if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+  window.open(`https://t.me/${TG_USER}`, '_blank');
+
+  msgHint.hidden = false;
+  setTimeout(() => (msgHint.hidden = true), 8000); // через 8 секунд скрываем
+});
+
+/* =========================================================
+   8. ТЕКУЩИЙ ГОД В ПОДВАЛЕ (обновляется сам)
+   ========================================================= */
+document.getElementById('year').textContent = new Date().getFullYear();
