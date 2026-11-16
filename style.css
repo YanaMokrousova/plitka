@@ -293,8 +293,13 @@ button, input, select, textarea { font: inherit; }
 .header:not(.is-scrolled):not(.menu-open) .logo__mark { border-color: rgba(255, 255, 255, .8); }
 .header:not(.is-scrolled):not(.menu-open) .burger span { background: #fff; }
 /* Текст теперь один в блоке — сетка не нужна, оставляем максимальную ширину */
+/* Текст главного блока прижат к левому краю контейнера */
+.hero__content { max-width: 760px; margin: 0; text-align: left; }
 .hero__inner {
   max-width: 760px;
+  margin-left: 0;
+  margin-inline-start: 0;
+  text-align: left;
 }
 .hero__title {
   font-family: var(--font-head);
@@ -306,12 +311,15 @@ button, input, select, textarea { font: inherit; }
   margin-bottom: 26px;
 }
 .hero__text { font-size: 16px; font-weight: 300; max-width: 520px; margin-bottom: 32px; color: rgba(245, 243, 238, .62); }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 44px; }
+/* Кнопки и цифры прижаты к левому краю: text-align + align-items не дают
+   флекс-элементам растягиваться/центрироваться, padding/margin-left убраны */
+.hero__actions { display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: 14px; margin: 0 0 44px; padding: 0; text-align: left; }
 /* На тёмном hero «призрачная» кнопка — светлый контур */
 .hero .btn--ghost { border-color: rgba(245, 243, 238, .35); color: #fff; }
 .hero .btn--ghost:hover { background: #fff; border-color: #fff; color: var(--c-dark); }
 
-.hero__stats { display: flex; flex-wrap: wrap; }
+/* Цифры тоже прижимаем к левому краю (без отступа списка и центрирования) */
+.hero__stats { display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start; margin: 0; padding: 0; text-align: left; list-style: none; }
 .hero__stats li { padding-right: 44px; margin-right: 44px; border-right: 1px solid var(--c-line-dark); }
 .hero__stats li:last-child { border-right: none; margin-right: 0; padding-right: 0; }
 .hero__stats strong {
