@@ -6,6 +6,13 @@ const header = document.getElementById('header');
 function handleHeaderScroll() {
   // Если прокрутили больше 20px, добавляем класс is-scrolled
   header.classList.toggle('is-scrolled', window.scrollY > 20);
+
+  // Подбираем цвет шапки под секцию, над которой она сейчас находится:
+  // если центр шапки попал на тёмный фон — добавляем is-over-dark (белые элементы)
+  const probe = 42; // точка внутри высоты шапки
+  const el = document.elementFromPoint(window.innerWidth / 2, probe);
+  const darkSection = el && el.closest('.hero, .services, .contacts, footer');
+  header.classList.toggle('is-over-dark', !!darkSection);
 }
 window.addEventListener('scroll', handleHeaderScroll, { passive: true });
 handleHeaderScroll(); // проверяем сразу при загрузке
