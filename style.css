@@ -285,9 +285,19 @@ button, input, select, textarea { font: inherit; }
 }
 /* Текст и цифры — над слоями фона */
 .hero .container { position: relative; z-index: 1; }
-/* Просьба: кнопки и цифры в первом блоке сдвинуть левее, но чуть плотнее к правому краю */
+/* Просьба: кнопки и цифры в первом блоке сдвинуть левее, но чуть плотнее к правому краю.
+   В hero класс .container висит на том же div, что и .hero__inner, поэтому
+   переопределяем ширину прямо там: max-width 760px + margin-left:auto — контент
+   (заголовок, кнопки, цифры) прижимается к правому краю контейнера. */
 @media (min-width: 901px) {
-  .hero .container { width: min(1200px, 100% - 80px); }
+  .hero .container.hero__inner {
+    width: min(760px, 100% - 48px);
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: 0;
+  }
+  /* Цифры прижимаем к правому краю блока: крайняя статистика без отступа */
+  .hero__stats li:last-child { margin-right: 0; padding-right: 0; }
 }
 .hero .eyebrow { color: var(--c-accent); }
 /* Шапка над тёмным hero — прозрачная, но с белыми элементами */
