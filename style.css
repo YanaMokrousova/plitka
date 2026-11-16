@@ -1,16 +1,16 @@
 /* =========================================================
    1. ПЕРЕМЕННЫЕ — Editorial Luxury / архитектурный минимализм.
-   Графит #1C1B1A чередуется с молочно-бежевым #F4F1EC.
+   Графит #1C1B1A чередуется со светлым фоном слоновой кости #F5F3EE.
    ========================================================= */
 :root {
-  --c-bg: #F4F1EC;          /* тёплый молочно-бежевый фон */
-  --c-surface: #FBFAF7;     /* фон карточек на светлом */
+  --c-bg: #F5F3EE;          /* слоновая кость — светлые блоки */
+  --c-surface: #FCFBF8;     /* фон карточек на светлом */
   --c-dark: #1C1B1A;        /* глубокий графит: тёмные блоки и заголовки */
   --c-text: #45423e;        /* основной текст */
   --c-muted: #8a857d;       /* второстепенный серо-бежевый текст */
   --c-accent: #b08d57;      /* приглушённое золото — тонкий люксовый акцент */
   --c-line: #ddd6cb;        /* тонкие разделительные линии (1px) */
-  --c-line-dark: rgba(244, 241, 236, .16); /* линии внутри тёмных блоков */
+  --c-line-dark: rgba(245, 243, 238, .16); /* линии внутри тёмных блоков */
 
   --radius: 2px;            /* почти острые углы — архитектурно */
   --shadow: none;           /* теней нет: границы задают линии */
@@ -134,7 +134,7 @@ button, input, select, textarea { font: inherit; }
    .photo — контейнер под изображение: фото само растягивается
    на весь блок без искажений (object-fit: cover).
    ========================================================= */
-.photo { position: relative; overflow: hidden; background-color: #e6e1d8; }
+.photo { position: relative; overflow: hidden; background-color: #e9e5dc; }
 .photo img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -155,7 +155,7 @@ button, input, select, textarea { font: inherit; }
 /* После прокрутки у шапки появляется молочно-матовый фон с тонкой линией снизу */
 .header.is-scrolled,
 .header.menu-open {
-  background: rgba(244, 241, 236, .9);
+  background: rgba(245, 243, 238, .9);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--c-line);
 }
@@ -238,9 +238,22 @@ button, input, select, textarea { font: inherit; }
 .burger.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* =========================================================
-   7. ПЕРВЫЙ ЭКРАН — светлый молочный, крупная типографика
+   7. ПЕРВЫЙ ЭКРАН — тёмный графитовый (контраст №1),
+   крупная типографика, светлый текст
    ========================================================= */
-.hero { padding: calc(var(--header-h) + 80px) 0 110px; overflow: hidden; }
+.hero {
+  padding: calc(var(--header-h) + 80px) 0 110px;
+  overflow: hidden;
+  background: var(--c-dark);
+  color: rgba(245, 243, 238, .72);
+}
+.hero .eyebrow { color: var(--c-accent); }
+/* Шапка над тёмным hero — прозрачная, но с белыми элементами */
+.header:not(.is-scrolled):not(.menu-open) .logo,
+.header:not(.is-scrolled):not(.menu-open) .nav__link,
+.header:not(.is-scrolled):not(.menu-open) .header__phone { color: #fff; }
+.header:not(.is-scrolled):not(.menu-open) .logo__mark { border-color: rgba(255, 255, 255, .8); }
+.header:not(.is-scrolled):not(.menu-open) .burger span { background: #fff; }
 .hero__inner {
   display: grid;
   grid-template-columns: 1.05fr .95fr;
@@ -253,14 +266,17 @@ button, input, select, textarea { font: inherit; }
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -.015em;
-  color: var(--c-dark);
+  color: #fff;
   margin-bottom: 26px;
 }
-.hero__text { font-size: 18px; font-weight: 300; max-width: 520px; margin-bottom: 40px; }
+.hero__text { font-size: 18px; font-weight: 300; max-width: 520px; margin-bottom: 40px; color: rgba(245, 243, 238, .62); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 64px; }
+/* На тёмном hero «призрачная» кнопка — светлый контур */
+.hero .btn--ghost { border-color: rgba(245, 243, 238, .35); color: #fff; }
+.hero .btn--ghost:hover { background: #fff; border-color: #fff; color: var(--c-dark); }
 
 .hero__stats { display: flex; flex-wrap: wrap; }
-.hero__stats li { padding-right: 44px; margin-right: 44px; border-right: 1px solid var(--c-line); }
+.hero__stats li { padding-right: 44px; margin-right: 44px; border-right: 1px solid var(--c-line-dark); }
 .hero__stats li:last-child { border-right: none; margin-right: 0; padding-right: 0; }
 .hero__stats strong {
   display: block;
@@ -268,9 +284,9 @@ button, input, select, textarea { font: inherit; }
   font-size: 44px;
   font-weight: 500;
   line-height: 1.1;
-  color: var(--c-dark);
+  color: #fff;
 }
-.hero__stats span { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); }
+.hero__stats span { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(245, 243, 238, .5); }
 
 /* Большое атмосферное фото с «рамкой» из тонкой линии */
 .hero__visual { position: relative; }
@@ -281,15 +297,15 @@ button, input, select, textarea { font: inherit; }
 .hero__frame::after {
   content: '';
   position: absolute; inset: 14px;
-  border: 1px solid rgba(244, 241, 236, .5);
+  border: 1px solid rgba(245, 243, 238, .5);
   pointer-events: none;
 }
 .hero__badge {
   position: absolute; left: -28px; bottom: 44px;
   display: flex; align-items: center; gap: 10px;
   padding: 18px 26px;
-  background: var(--c-dark);
-  color: rgba(244, 241, 236, .85);
+  background: var(--c-bg);              /* светлая плашка на тёмном фоне */
+  color: var(--c-text);
   border-radius: var(--radius);
   font-size: 13px;
   letter-spacing: .06em;
@@ -303,9 +319,9 @@ button, input, select, textarea { font: inherit; }
 /* =========================================================
    8. О НАС — тёмный графитовый блок (контраст №1)
    ========================================================= */
-.about { background: var(--c-dark); color: rgba(244, 241, 236, .72); }
+.about { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
 .about .section__title { color: #fff; }
-.about .section__text { color: rgba(244, 241, 236, .55); }
+.about .section__text { color: rgba(245, 243, 238, .55); }
 
 .about__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
 .master {
@@ -313,7 +329,7 @@ button, input, select, textarea { font: inherit; }
   overflow: hidden;
   border: 1px solid var(--c-line-dark);
   border-radius: var(--radius);
-  background: #232220;
+  background: #262523;
   transition: border-color .3s;
 }
 .master:hover { border-color: var(--c-accent); }
@@ -330,7 +346,7 @@ button, input, select, textarea { font: inherit; }
   border: 1px solid var(--c-line-dark);
   font-size: 13px;
   letter-spacing: .04em;
-  color: rgba(244, 241, 236, .8);
+  color: rgba(245, 243, 238, .8);
 }
 
 /* =========================================================
@@ -367,9 +383,9 @@ button, input, select, textarea { font: inherit; }
    10. ПОРТФОЛИО — тёмный графитовый блок (контраст №3),
    крупные atmospheric-фото
    ========================================================= */
-.portfolio { background: var(--c-dark); color: rgba(244, 241, 236, .72); }
+.portfolio { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
 .portfolio .section__title { color: #fff; }
-.portfolio .section__text { color: rgba(244, 241, 236, .55); }
+.portfolio .section__text { color: rgba(245, 243, 238, .55); }
 
 .filters { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 52px; }
 .filter {
@@ -377,14 +393,14 @@ button, input, select, textarea { font: inherit; }
   border-radius: 999px;                 /* капсулы */
   border: 1px solid var(--c-line-dark);
   background: transparent;
-  color: rgba(244, 241, 236, .75);
+  color: rgba(245, 243, 238, .75);
   font-size: 13px;
   letter-spacing: .1em;
   text-transform: uppercase;
   cursor: pointer;
   transition: background .25s, color .25s, border-color .25s;
 }
-.filter:hover { border-color: rgba(244, 241, 236, .5); }
+.filter:hover { border-color: rgba(245, 243, 238, .5); }
 .filter.is-active { background: var(--c-bg); border-color: var(--c-bg); color: var(--c-dark); }
 
 .portfolio__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
@@ -392,7 +408,7 @@ button, input, select, textarea { font: inherit; }
   position: relative;
   overflow: hidden;
   border-radius: var(--radius);
-  background: #232220;
+  background: #262523;
 }
 .work.is-hidden { display: none; }
 
@@ -402,7 +418,7 @@ button, input, select, textarea { font: inherit; }
   position: absolute; top: 16px; left: 16px; z-index: 1;
   padding: 7px 16px;
   border-radius: 999px;
-  background: rgba(28, 27, 26, .72);
+  background: rgba(24, 23, 22, .72);
   backdrop-filter: blur(6px);
   font-size: 11px; font-weight: 500;
   letter-spacing: .14em;
@@ -420,7 +436,7 @@ button, input, select, textarea { font: inherit; }
 }
 .work:hover .work__body { transform: none; opacity: 1; }
 .work__title { font-family: var(--font-head); font-size: 21px; font-weight: 500; color: #fff; margin-bottom: 6px; }
-.work__text { font-size: 14px; font-weight: 300; color: rgba(244, 241, 236, .7); margin-bottom: 12px; }
+.work__text { font-size: 14px; font-weight: 300; color: rgba(245, 243, 238, .7); margin-bottom: 12px; }
 .work__meta { display: flex; flex-wrap: wrap; gap: 18px; }
 .work__meta li {
   font-size: 12px;
@@ -492,7 +508,7 @@ button, input, select, textarea { font: inherit; }
   width: 10px; height: 10px;
   padding: 0;
   border: none; border-radius: 999px;
-  background: #cfc6b8;
+  background: #d8d2c6;
   cursor: pointer;
   transition: width .3s, background .3s;
 }
@@ -501,9 +517,9 @@ button, input, select, textarea { font: inherit; }
 /* =========================================================
    12. КОНТАКТЫ — тёмный графитовый блок (контраст №5)
    ========================================================= */
-.contacts { background: var(--c-dark); color: rgba(244, 241, 236, .72); }
+.contacts { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
 .contacts .section__title { color: #fff; }
-.contacts .section__text { color: rgba(244, 241, 236, .55); }
+.contacts .section__text { color: rgba(245, 243, 238, .55); }
 
 .contacts__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .contacts__list { display: grid; gap: 4px; margin: 40px 0; }
@@ -540,7 +556,7 @@ button, input, select, textarea { font: inherit; }
   padding: 48px;
   border: 1px solid var(--c-line-dark);
   border-radius: var(--radius);
-  background: #232220;
+  background: #262523;
 }
 .form__title { font-family: var(--font-head); font-size: 26px; font-weight: 500; color: #fff; }
 .template-text {
@@ -549,7 +565,7 @@ button, input, select, textarea { font: inherit; }
   padding: 20px;
   border: 1px solid var(--c-line-dark);
   border-radius: var(--radius);
-  background: rgba(244, 241, 236, .05);
+  background: rgba(245, 243, 238, .05);
   color: var(--c-bg);
   font-size: 15px;
   font-family: var(--font-body);
@@ -559,7 +575,7 @@ button, input, select, textarea { font: inherit; }
   outline: none;
   transition: border-color .25s, background .25s;
 }
-.template-text:focus { border-color: var(--c-accent); background: rgba(244, 241, 236, .08); }
+.template-text:focus { border-color: var(--c-accent); background: rgba(245, 243, 238, .08); }
 .form__note { font-size: 14px; }
 #copyHint { color: var(--c-accent) !important; }
 
@@ -570,7 +586,7 @@ button, input, select, textarea { font: inherit; }
   padding: 48px 0;
   background: #161514;                  /* еще темнее графита — «подвал» */
   border-top: 1px solid var(--c-line-dark);
-  color: rgba(244, 241, 236, .5);
+  color: rgba(245, 243, 238, .5);
   font-size: 13px;
   letter-spacing: .06em;
 }
