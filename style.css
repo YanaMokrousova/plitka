@@ -285,6 +285,10 @@ button, input, select, textarea { font: inherit; }
 }
 /* Текст и цифры — над слоями фона */
 .hero .container { position: relative; z-index: 1; }
+/* Просьба: кнопки и цифры в первом блоке сдвинуть левее, но чуть плотнее к правому краю */
+@media (min-width: 901px) {
+  .hero .container { width: min(1200px, 100% - 80px); }
+}
 .hero .eyebrow { color: var(--c-accent); }
 /* Шапка над тёмным hero — прозрачная, но с белыми элементами */
 .header:not(.is-scrolled):not(.menu-open) .logo,
