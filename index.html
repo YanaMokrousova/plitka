@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
   <!-- Подключаем наш файл стилей -->
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 
   <!-- Маленький скрипт: помечает, что JS работает (нужно для анимаций появления) -->
   <script>document.documentElement.classList.add('js');</script>
@@ -58,9 +58,12 @@
 
     <!-- ==================== ПЕРВЫЙ ЭКРАН (HERO) ==================== -->
     <section class="hero">
+      <!-- Фоновое фото главного блока. Своё фото: main1.jpg лежит в корне репозитория -->
+      <div class="hero__bg" aria-hidden="true"></div>
+
       <div class="container hero__inner">
 
-        <!-- Левая часть: текст -->
+        <!-- Текст главного блока (фото мастера и средняя оценка убраны по просьбе) -->
         <div class="hero__content reveal">
           <p class="eyebrow">Укладка плитки в Сочи</p>
           <h1 class="hero__title">
@@ -83,15 +86,6 @@
             <li><strong data-count="100" data-suffix="+">100+</strong><span>объектов</span></li>
             <li><strong data-count="3">3</strong><span>года гарантии</span></li>
           </ul>
-        </div>
-
-        <!-- Правая часть: большое атмосферное фото интерьера.
-             Своё фото: замените ссылку внутри <img src="..."> -->
-        <div class="hero__visual reveal">
-          <figure class="photo hero__frame">
-            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80" alt="Ванная комната с крупноформатным керамогранитом">
-          </figure>
-          <div class="hero__badge"><span class="hero__badge-num">4.9</span> средняя оценка клиентов</div>
         </div>
       </div>
     </section>
@@ -444,6 +438,6 @@
   </a>
 
   <!-- Подключаем JavaScript в самом конце, когда вся страница уже загружена -->
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>

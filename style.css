@@ -260,11 +260,31 @@ button, input, select, textarea { font: inherit; }
    крупная типографика, светлый текст
    ========================================================= */
 .hero {
+  position: relative;
   padding: calc(var(--header-h) + 80px) 0 110px;
   overflow: hidden;
   background: var(--c-dark);
   color: rgba(245, 243, 238, .72);
 }
+/* Фоновое фото главного блока: main1.jpg (лежит в корне репозитория).
+   Фото немного прозрачное и затемнённые градиентом — текст читается слева. */
+.hero__bg {
+  position: absolute; inset: 0;
+  background: url('main1.jpg') center / cover no-repeat;
+  opacity: .55;                          /* «немного прозрачное» — можно менять */
+  filter: saturate(.85) contrast(1.05);  /* лёгкая обработка под общий стиль */
+}
+/* Затемняющий слой поверх фото: темнее слева (под текстом), светлее справа */
+.hero__bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    rgba(28, 27, 26, .92) 0%,
+    rgba(28, 27, 26, .72) 45%,
+    rgba(28, 27, 26, .45) 100%);
+}
+/* Текст и цифры — над слоями фона */
+.hero .container { position: relative; z-index: 1; }
 .hero .eyebrow { color: var(--c-accent); }
 /* Шапка над тёмным hero — прозрачная, но с белыми элементами */
 .header:not(.is-scrolled):not(.menu-open) .logo,
@@ -272,11 +292,9 @@ button, input, select, textarea { font: inherit; }
 .header:not(.is-scrolled):not(.menu-open) .header__phone { color: #fff; }
 .header:not(.is-scrolled):not(.menu-open) .logo__mark { border-color: rgba(255, 255, 255, .8); }
 .header:not(.is-scrolled):not(.menu-open) .burger span { background: #fff; }
+/* Текст теперь один в блоке — сетка не нужна, оставляем максимальную ширину */
 .hero__inner {
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
-  gap: 80px;
-  align-items: center;
+  max-width: 760px;
 }
 .hero__title {
   font-family: var(--font-head);
@@ -305,34 +323,6 @@ button, input, select, textarea { font: inherit; }
   color: #fff;
 }
 .hero__stats span { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: rgba(245, 243, 238, .5); }
-
-/* Большое атмосферное фото с «рамкой» из тонкой линии */
-.hero__visual { position: relative; }
-.hero__frame {
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius);
-}
-.hero__frame::after {
-  content: '';
-  position: absolute; inset: 14px;
-  border: 1px solid rgba(245, 243, 238, .5);
-  pointer-events: none;
-}
-.hero__badge {
-  position: absolute; left: -28px; bottom: 44px;
-  display: flex; align-items: center; gap: 10px;
-  padding: 18px 26px;
-  background: var(--c-bg);              /* светлая плашка на тёмном фоне */
-  color: var(--c-text);
-  border-radius: var(--radius);
-  font-size: 13px;
-  letter-spacing: .06em;
-}
-.hero__badge-num {
-  font-family: var(--font-head);
-  font-size: 26px;
-  color: var(--c-accent);
-}
 
 /* =========================================================
    8. О НАС — светлый блок слоновой кости (контраст №2)
@@ -637,7 +627,6 @@ button, input, select, textarea { font: inherit; }
   .portfolio__grid { grid-template-columns: repeat(2, 1fr); }
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .review { flex-basis: calc((100% - 2px) / 2); }
-  .hero__inner { gap: 48px; }
 }
 
 /* Планшеты поменьше и телефоны: включаем мобильное меню */
@@ -665,9 +654,13 @@ button, input, select, textarea { font: inherit; }
   .nav__link::after { display: none; }
   .nav__cta { display: inline-flex; margin-top: 20px; }
 
-  .hero__inner { grid-template-columns: 1fr; gap: 56px; }
-  .hero__visual { width: 100%; max-width: 480px; margin-inline: auto; }
-  .hero__badge { left: 12px; }
+  /* На мобильных градиент делаем вертикальным: темнее сверху, где текст */
+  .hero__bg::after {
+    background: linear-gradient(180deg,
+      rgba(28, 27, 26, .9) 0%,
+      rgba(28, 27, 26, .75) 55%,
+      rgba(28, 27, 26, .55) 100%);
+  }
 
   .contacts__inner { grid-template-columns: 1fr; gap: 48px; }
   .call-float { display: grid; }
