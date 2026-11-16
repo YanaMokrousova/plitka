@@ -201,26 +201,6 @@ if (copyBtn && templateText) {
 }
 
 
-// Чтобы страница не перезагружалась при нажатии Enter
-msgForm.addEventListener('submit', (event) => event.preventDefault());
-
-// WhatsApp: открывается чат с вашим номером, текст уже вставлен
-document.getElementById('sendWa').addEventListener('click', () => {
-  const text = encodeURIComponent(buildMessage());
-  window.open(`https://wa.me/${PHONE}?text=${text}`, '_blank');
-});
-
-// Telegram: не умеет сам вставлять текст в личный чат,
-// поэтому копируем текст и открываем чат: клиенту остаётся нажать «Вставить»
-document.getElementById('sendTg').addEventListener('click', () => {
-  const text = buildMessage();
-  if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
-  window.open(`https://t.me/${TG_USER}`, '_blank');
-
-  msgHint.hidden = false;
-  setTimeout(() => (msgHint.hidden = true), 8000); // через 8 секунд скрываем
-});
-
 /* =========================================================
    8. ТЕКУЩИЙ ГОД В ПОДВАЛЕ (обновляется сам)
    ========================================================= */
