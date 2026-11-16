@@ -293,12 +293,12 @@ button, input, select, textarea { font: inherit; }
 .header:not(.is-scrolled):not(.menu-open) .logo__mark { border-color: rgba(255, 255, 255, .8); }
 .header:not(.is-scrolled):not(.menu-open) .burger span { background: #fff; }
 /* Текст теперь один в блоке — сетка не нужна, оставляем максимальную ширину */
-/* Текст главного блока прижат к левому краю контейнера */
+/* Текст главного блока — у левого края, но с небольшим отступом от края экрана */
 .hero__content { max-width: 760px; margin: 0; text-align: left; }
 .hero__inner {
   max-width: 760px;
   margin-left: 0;
-  margin-inline-start: 0;
+  margin-inline-start: 24px;   /* лёгкий отступ от левого края, чтобы не «прилипало» */
   text-align: left;
 }
 .hero__title {
@@ -679,6 +679,7 @@ button, input, select, textarea { font: inherit; }
   .section { padding: 72px 0; }
   .section__head { margin-bottom: 44px; }
   .hero { padding-top: calc(var(--header-h) + 24px); padding-bottom: 44px; }
+  .hero__inner { margin-inline-start: 8px; }  /* на телефоне отступ меньше, чтобы не тесно */
   .hero__actions .btn { width: 100%; }        /* кнопки на всю ширину — удобнее нажимать */
   .hero__stats li { padding-right: 22px; margin-right: 22px; }
   .hero__stats strong { font-size: 32px; }
