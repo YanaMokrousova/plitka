@@ -254,7 +254,7 @@ button, input, select, textarea { font: inherit; }
 .header:not(.is-scrolled):not(.menu-open) .header__phone { color: #fff; }
 .header:not(.is-scrolled):not(.menu-open) .logo__mark { border-color: rgba(255, 255, 255, .8); }
 .header:not(.is-scrolled):not(.menu-open) .burger span { background: #fff; }
-.hero__inner {
+.hero .split__inner {
   display: grid;
   grid-template-columns: 1.05fr .95fr;
   gap: 80px;
@@ -319,55 +319,70 @@ button, input, select, textarea { font: inherit; }
 /* =========================================================
    8. О НАС — тёмный графитовый блок (контраст №1)
    ========================================================= */
-.about { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
-.about .section__title { color: #fff; }
-.about .section__text { color: rgba(245, 243, 238, .55); }
+.about { background: var(--c-bg); color: var(--c-text); }
 
-.about__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+/* Мастера — компактные карточки в правой колонке блока «О нас» */
+.about__grid { display: grid; grid-auto-rows: auto; gap: 28px; }
 .master {
-  display: flex; flex-direction: column;
+  display: grid;
+  grid-template-columns: 128px 1fr;
   overflow: hidden;
-  border: 1px solid var(--c-line-dark);
+  border: 1px solid var(--c-line);
   border-radius: var(--radius);
-  background: #262523;
+  background: var(--c-surface);
   transition: border-color .3s;
 }
 .master:hover { border-color: var(--c-accent); }
-.master__photo { aspect-ratio: 4 / 3; }
+.master__photo { aspect-ratio: 1 / 1.15; min-height: 100%; }
 .master:hover .master__photo img { transform: scale(1.05); }
-.master__body { padding: 36px; }
-.master__name { font-family: var(--font-head); font-size: 28px; font-weight: 500; color: #fff; }
+.master__body { padding: 26px 28px; }
+.master__name { font-family: var(--font-head); font-size: 24px; font-weight: 500; color: var(--c-dark); }
 .master__role { color: var(--c-accent); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px; }
-.master__text { font-weight: 300; }
-.master__skills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--c-line-dark); }
+.master__text { font-weight: 300; font-size: 14px; line-height: 1.65; }
+.master__skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--c-line); }
 .master__skills li {
   padding: 7px 16px;
   border-radius: 999px;                 /* капсулы-теги */
-  border: 1px solid var(--c-line-dark);
-  font-size: 13px;
+  border: 1px solid var(--c-line);
+  font-size: 12px;
   letter-spacing: .04em;
-  color: rgba(245, 243, 238, .8);
+  color: var(--c-text);
 }
 
 /* =========================================================
    9. УСЛУГИ — светлый молочный блок (контраст №2),
    карточки разделены тонкими линиями 1px
    ========================================================= */
-.services__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--c-line);
-  border-left: 1px solid var(--c-line);
+.services { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
+.services .section__title { color: #fff; }
+.services .section__text { color: rgba(245, 243, 238, .55); }
+.services__cta { margin-top: 36px; }
+
+/* Лента услуг: сплошной горизонтальный скролл с «защёлкиванием» карточек */
+.services__ribbon {
+  display: flex;
+  gap: 2px;                              /* карточки разделены тонкими линиями */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 28px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 243, 238, .25) transparent;
 }
+.services__ribbon::-webkit-scrollbar { height: 3px; }
+.services__ribbon::-webkit-scrollbar-thumb { background: rgba(245, 243, 238, .25); }
+.services__ribbon::-webkit-scrollbar-track { background: rgba(245, 243, 238, .07); }
+
 .service {
+  flex: 0 0 clamp(280px, 46%, 380px);
+  scroll-snap-align: start;
   display: flex; flex-direction: column;
   padding: 44px 38px;
-  border-right: 1px solid var(--c-line);
-  border-bottom: 1px solid var(--c-line);
-  background: transparent;
+  background: #232220;
+  border: none;
   transition: background .35s;
 }
-.service:hover { background: var(--c-surface); }
+.service:hover { background: #2b2a27; }
 .service__num {
   font-size: 12px;
   letter-spacing: .3em;
@@ -375,40 +390,38 @@ button, input, select, textarea { font: inherit; }
   margin-bottom: 34px;
 }
 .service__icon { width: 40px; height: 40px; stroke: var(--c-accent); margin-bottom: 22px; }
-.service__title { font-family: var(--font-head); font-size: 24px; font-weight: 500; color: var(--c-dark); margin-bottom: 14px; }
-.service__text { flex-grow: 1; font-weight: 300; font-size: 15px; margin-bottom: 28px; }
-.service__price { padding-top: 20px; border-top: 1px solid var(--c-line); font-size: 15px; letter-spacing: .04em; color: var(--c-dark); }
+.service__title { font-family: var(--font-head); font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 14px; }
+.service__text { flex-grow: 1; font-weight: 300; font-size: 15px; margin-bottom: 28px; color: rgba(245, 243, 238, .62); }
+.service__price { padding-top: 20px; border-top: 1px solid var(--c-line-dark); font-size: 15px; letter-spacing: .04em; color: var(--c-accent); }
 
 /* =========================================================
    10. ПОРТФОЛИО — тёмный графитовый блок (контраст №3),
    крупные atmospheric-фото
    ========================================================= */
-.portfolio { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
-.portfolio .section__title { color: #fff; }
-.portfolio .section__text { color: rgba(245, 243, 238, .55); }
+.portfolio { background: var(--c-bg); color: var(--c-text); }
 
 .filters { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 52px; }
 .filter {
   padding: 11px 26px;
   border-radius: 999px;                 /* капсулы */
-  border: 1px solid var(--c-line-dark);
+  border: 1px solid var(--c-line);
   background: transparent;
-  color: rgba(245, 243, 238, .75);
+  color: var(--c-text);
   font-size: 13px;
   letter-spacing: .1em;
   text-transform: uppercase;
   cursor: pointer;
   transition: background .25s, color .25s, border-color .25s;
 }
-.filter:hover { border-color: rgba(245, 243, 238, .5); }
-.filter.is-active { background: var(--c-bg); border-color: var(--c-bg); color: var(--c-dark); }
+.filter:hover { border-color: var(--c-dark); }
+.filter.is-active { background: var(--c-dark); border-color: var(--c-dark); color: var(--c-bg); }
 
 .portfolio__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
 .work {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius);
-  background: #262523;
+  background: var(--c-surface);
 }
 .work.is-hidden { display: none; }
 
@@ -446,8 +459,11 @@ button, input, select, textarea { font: inherit; }
 }
 
 /* =========================================================
-   11. ОТЗЫВЫ — светлый молочный блок (контраст №4)
+   11. ОТЗЫВЫ — тёмный графитовый блок (контраст №4)
    ========================================================= */
+.reviews { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
+.reviews .section__title { color: #fff; }
+.reviews .section__text { color: rgba(245, 243, 238, .55); }
 .slider__track {
   display: flex;
   gap: 2px;                             /* карточки разделены тонкими линиями-зазорами */
@@ -464,8 +480,8 @@ button, input, select, textarea { font: inherit; }
   scroll-snap-align: start;
   display: flex; flex-direction: column;
   padding: 56px 48px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
+  border: 1px solid var(--c-line-dark);
+  background: #232220;
 }
 .review__stars { color: var(--c-accent); letter-spacing: 6px; font-size: 13px; margin-bottom: 28px; }
 .review__text {
@@ -476,9 +492,9 @@ button, input, select, textarea { font: inherit; }
   font-weight: 400;
   font-style: italic;
   line-height: 1.5;
-  color: var(--c-dark);
+  color: #fff;
 }
-.review__author { display: flex; align-items: center; gap: 16px; padding-top: 24px; border-top: 1px solid var(--c-line); }
+.review__author { display: flex; align-items: center; gap: 16px; padding-top: 24px; border-top: 1px solid var(--c-line-dark); }
 .review__avatar {
   display: grid; place-items: center;
   flex-shrink: 0;
@@ -488,27 +504,27 @@ button, input, select, textarea { font: inherit; }
   color: var(--c-accent);
   font-size: 13px; font-weight: 500; letter-spacing: .08em;
 }
-.review__author b { display: block; color: var(--c-dark); font-weight: 500; }
+.review__author b { display: block; color: #fff; font-weight: 500; }
 .review__author small { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--c-muted); }
 
 .slider__controls { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 24px; }
 .slider__btn {
   width: 56px; height: 56px;
   border-radius: 50%;                   /* круглые капсулы-стрелки */
-  border: 1px solid rgba(28, 27, 26, .3);
+  border: 1px solid rgba(245, 243, 238, .3);
   background: transparent;
-  color: var(--c-dark);
+  color: var(--c-bg);
   font-size: 18px;
   cursor: pointer;
   transition: background .25s, color .25s, border-color .25s;
 }
-.slider__btn:hover { background: var(--c-dark); border-color: var(--c-dark); color: var(--c-bg); }
+.slider__btn:hover { background: var(--c-bg); border-color: var(--c-bg); color: var(--c-dark); }
 .slider__dots { display: flex; gap: 8px; }
 .slider__dot {
   width: 10px; height: 10px;
   padding: 0;
   border: none; border-radius: 999px;
-  background: #d8d2c6;
+  background: rgba(245, 243, 238, .28);
   cursor: pointer;
   transition: width .3s, background .3s;
 }
@@ -609,6 +625,28 @@ button, input, select, textarea { font: inherit; }
   100% { box-shadow: 0 0 0 0 rgba(176, 141, 87, 0); }
 }
 
+
+/* =========================================================
+   13b. ШАХМАТНАЯ СЕТКА — чередование сторон текста
+   split--left  : текст слева, визуал справа
+   section__head--right : заголовок секции прижат вправо
+   ========================================================= */
+.split__side { min-width: 0; }
+.split .section__head { max-width: none; margin-bottom: 0; }
+.services .split__text { position: sticky; top: calc(var(--header-h) + 40px); align-self: start; }
+.split--left .split__text { grid-column: 1; }
+.split--left .split__side { grid-column: 2; }
+.section__head--right { margin-left: auto; text-align: right; }
+.section__head--right .eyebrow { flex-direction: row-reverse; }
+.section__head--right .filters { justify-content: flex-end; }
+@media (max-width: 900px) {
+  .services .split__text { position: static; }
+  .split .section__head { margin-bottom: 40px; }
+  .section__head--right { text-align: left; margin-left: 0; }
+  .section__head--right .eyebrow { flex-direction: row; }
+  .section__head--right .filters { justify-content: flex-start; }
+}
+
 /* =========================================================
    14. АДАПТИВНОСТЬ — правила для разных экранов
    ========================================================= */
@@ -617,9 +655,8 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 1024px) {
   .section { padding: 100px 0; }
   .portfolio__grid { grid-template-columns: repeat(2, 1fr); }
-  .services__grid { grid-template-columns: repeat(2, 1fr); }
   .review { flex-basis: calc((100% - 2px) / 2); }
-  .hero__inner { gap: 48px; }
+  .hero .split__inner { gap: 48px; }
 }
 
 /* Планшеты поменьше и телефоны: включаем мобильное меню */
@@ -647,7 +684,7 @@ button, input, select, textarea { font: inherit; }
   .nav__link::after { display: none; }
   .nav__cta { display: inline-flex; margin-top: 20px; }
 
-  .hero__inner { grid-template-columns: 1fr; gap: 56px; }
+  .hero .split__inner { grid-template-columns: 1fr; gap: 56px; }
   .hero__visual { width: 100%; max-width: 480px; margin-inline: auto; }
   .hero__badge { left: 12px; }
 
@@ -664,8 +701,8 @@ button, input, select, textarea { font: inherit; }
   .hero__stats li { padding-right: 22px; margin-right: 22px; }
   .hero__stats strong { font-size: 32px; }
   .about__grid,
-  .services__grid,
   .portfolio__grid { grid-template-columns: 1fr; }
+  .service { flex-basis: 82%; }          /* виден край следующей: понятно, что лента листается */
   .service { padding: 34px 26px; }
   .review { flex-basis: 88%; padding: 36px 28px; }  /* виден край следующего: понятно, что можно листать */
   .review__text { font-size: 18px; }

@@ -58,10 +58,10 @@
 
     <!-- ==================== ПЕРВЫЙ ЭКРАН (HERO) ==================== -->
     <section class="hero">
-      <div class="container hero__inner">
+      <div class="container split__inner">
 
         <!-- Левая часть: текст -->
-        <div class="hero__content reveal">
+        <div class="split__text reveal hero__content">
           <p class="eyebrow">Укладка плитки в Сочи</p>
           <h1 class="hero__title">
             Укладываем плитку <em class="accent">идеально ровно</em> — с гарантией
@@ -97,10 +97,10 @@
     </section>
 
     <!-- ==================== О НАС (ДВА МАСТЕРА) ==================== -->
-    <section class="section about" id="about">
-      <div class="container">
+    <section class="section about split split--left" id="about">
+      <div class="container split__inner">
 
-        <div class="section__head reveal">
+        <div class="split__text reveal section__head">
           <p class="eyebrow">О нас</p>
           <h2 class="section__title">Два мастера — один стандарт качества</h2>
           <p class="section__text">
@@ -109,7 +109,7 @@
           </p>
         </div>
 
-        <div class="about__grid">
+        <div class="split__side about__grid">
           <!-- Мастер №1. Своё фото: замените ссылку внутри <img src="..."> -->
           <article class="master reveal">
             <div class="master__photo photo">
@@ -154,17 +154,19 @@
     </section>
 
     <!-- ==================== УСЛУГИ ==================== -->
-    <section class="section services" id="services">
-      <div class="container">
+    <section class="section services split split--left" id="services">
+      <div class="container split__inner">
 
-        <div class="section__head reveal">
+        <div class="split__text reveal section__head">
           <p class="eyebrow">Услуги</p>
           <h2 class="section__title">Что мы делаем</h2>
           <p class="section__text">Цены ориентировочные. Точную стоимость назовём после замера, и она не изменится в процессе.</p>
+          <a href="#contacts" class="btn btn--light services__cta">Рассчитать стоимость<span class="btn__arrow">&rarr;</span></a>
         </div>
 
-        <!-- Сетка карточек: сама перестраивается под ширину экрана -->
-        <div class="services__grid">
+        <!-- Лента услуг: листается горизонтально пальцем или мышкой -->
+        <div class="split__side">
+        <div class="services__ribbon">
           <article class="service reveal">
             <span class="service__num">01</span>
             <svg class="service__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12V6a2 2 0 0 1 4 0"/><path d="M2 12h20v2a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5v-2Z"/><path d="M6 21l-1 1.5M18 21l1 1.5"/></svg>
@@ -213,6 +215,7 @@
             <p class="service__price">от 500 ₽/м²</p>
           </article>
         </div>
+        </div>
       </div>
     </section>
 
@@ -220,7 +223,7 @@
     <section class="section portfolio" id="portfolio">
       <div class="container">
 
-        <div class="section__head reveal">
+        <div class="section__head section__head--right reveal">
           <p class="eyebrow">Портфолио</p>
           <h2 class="section__title">Наши работы</h2>
           <p class="section__text">Несколько последних объектов: что делали, сколько метров и за какой срок.</p>
