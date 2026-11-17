@@ -474,8 +474,35 @@ button, input, select, textarea { font: inherit; }
 }
 
 /* =========================================================
-   11. ОТЗЫВЫ — светлый молочный блок (контраст №4)
+   11. ОТЗЫВЫ — фон как у главного блока: то же фото
+   main1.jpg, прозрачное и затемнённое; карточки — тёмные «стеклянные»
    ========================================================= */
+.reviews {
+  position: relative;
+  isolation: isolate;                 /* фоновое фото не «вылезает» за секцию */
+  background: var(--c-dark);          /* запасной фон, пока грузится фото */
+  color: rgba(245, 243, 238, .72);
+}
+/* Слой с фото — такой же приём, что и в .hero__bg */
+.reviews__bg {
+  position: absolute; inset: 0; z-index: -1;
+  background: url('main1.jpg') center / cover no-repeat;
+  opacity: .35;                          /* «прозрачный», как у главного блока */
+  filter: saturate(.85) contrast(1.05);
+}
+/* Равномерное затемнение поверх фото, чтобы текст читался */
+.reviews__bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(28, 27, 26, .72) 0%,
+    rgba(28, 27, 26, .62) 50%,
+    rgba(28, 27, 26, .72) 100%);
+}
+.reviews .container { position: relative; z-index: 1; }
+.reviews .section__title { color: #fff; }
+.reviews .eyebrow { color: var(--c-accent); }
+
 .slider__track {
   display: flex;
   gap: 2px;                             /* карточки разделены тонкими линиями-зазорами */
@@ -492,8 +519,9 @@ button, input, select, textarea { font: inherit; }
   scroll-snap-align: start;
   display: flex; flex-direction: column;
   padding: 44px 48px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
+  border: 1px solid var(--c-line-dark); /* светлая тонкая линия на тёмном фоне */
+  background: rgba(28, 27, 26, .55);    /* «стеклянная» карточка поверх фото */
+  backdrop-filter: blur(4px);           /* лёгкое матовое стекло */
 }
 .review__stars { color: var(--c-accent); letter-spacing: 6px; font-size: 13px; margin-bottom: 20px; }
 .review__text {
@@ -504,9 +532,9 @@ button, input, select, textarea { font: inherit; }
   font-weight: 400;
   font-style: italic;
   line-height: 1.5;
-  color: var(--c-dark);
+  color: rgba(245, 243, 238, .85);      /* светлый текст отзыва на тёмной карточке */
 }
-.review__author { display: flex; align-items: center; gap: 16px; padding-top: 18px; border-top: 1px solid var(--c-line); }
+.review__author { display: flex; align-items: center; gap: 16px; padding-top: 18px; border-top: 1px solid var(--c-line-dark); }
 .review__avatar {
   display: grid; place-items: center;
   flex-shrink: 0;
@@ -516,48 +544,49 @@ button, input, select, textarea { font: inherit; }
   color: var(--c-accent);
   font-size: 13px; font-weight: 500; letter-spacing: .08em;
 }
-.review__author b { display: block; color: var(--c-dark); font-weight: 500; }
+.review__author b { display: block; color: var(--c-bg); font-weight: 500; }
 .review__author small { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--c-muted); }
 
 .slider__controls { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 24px; }
 .slider__btn {
   width: 56px; height: 56px;
   border-radius: 50%;                   /* круглые капсулы-стрелки */
-  border: 1px solid rgba(28, 27, 26, .3);
+  border: 1px solid rgba(245, 243, 238, .3);
   background: transparent;
-  color: var(--c-dark);
+  color: #fff;
   font-size: 18px;
   cursor: pointer;
   transition: background .25s, color .25s, border-color .25s;
 }
-.slider__btn:hover { background: var(--c-dark); border-color: var(--c-dark); color: var(--c-bg); }
+.slider__btn:hover { background: var(--c-bg); border-color: var(--c-bg); color: var(--c-dark); }
 .slider__dots { display: flex; gap: 8px; }
 .slider__dot {
   width: 10px; height: 10px;
   padding: 0;
   border: none; border-radius: 999px;
-  background: #d8d2c6;
+  background: rgba(245, 243, 238, .3);
   cursor: pointer;
   transition: width .3s, background .3s;
 }
 .slider__dot.is-active { width: 30px; background: var(--c-accent); } /* активная точка вытягивается */
 
 /* =========================================================
-   12. КОНТАКТЫ — тёмный графитовый блок (контраст №5)
+   12. КОНТАКТЫ — светлый блок слоновой кости
    ========================================================= */
-.contacts { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
-.contacts .section__title { color: #fff; }
-.contacts .section__text { color: rgba(245, 243, 238, .55); }
+.contacts { background: var(--c-bg); color: var(--c-text); }
+.contacts .section__title { color: var(--c-dark); }
+.contacts .section__text { color: var(--c-muted); }
 
 .contacts__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .contacts__list { display: grid; gap: 4px; margin: 28px 0; }
 .contacts__list li {
   display: flex; flex-direction: column; gap: 6px;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--c-line-dark);
+  border-bottom: 1px solid var(--c-line);
 }
 .contacts__list span { font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--c-muted); }
-.contacts__list a, .contacts__list p { font-family: var(--font-head); font-size: 24px; font-weight: 400; color: var(--c-bg); }
+.contacts__list a, .contacts__list p { font-family: var(--font-head); font-size: 24px; font-weight: 400; color: var(--c-dark); }
+.contacts__list a:hover { color: var(--c-accent); }
 .contacts__list p { font-family: var(--font-body); font-size: 17px; }
 
 .messengers { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -565,8 +594,8 @@ button, input, select, textarea { font: inherit; }
   display: inline-flex; align-items: center; gap: 12px;
   padding: 15px 32px;
   border-radius: 999px;                 /* капсулы со стрелкой */
-  border: 1px solid var(--c-line-dark);
-  color: var(--c-bg);
+  border: 1px solid rgba(28, 27, 26, .3);
+  color: var(--c-dark);
   font-size: 13px; font-weight: 500;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -574,27 +603,27 @@ button, input, select, textarea { font: inherit; }
 }
 .messenger .btn__arrow { transition: transform .3s; }
 .messenger:hover .btn__arrow { transform: translateX(5px); }
-.messenger--tg:hover { background: var(--c-bg); color: var(--c-dark); border-color: var(--c-bg); }
-.messenger--phone { background: var(--c-bg); color: var(--c-dark); border-color: var(--c-bg); }
+.messenger--tg:hover { background: var(--c-dark); color: var(--c-bg); border-color: var(--c-dark); }
+.messenger--phone { background: var(--c-dark); color: var(--c-bg); border-color: var(--c-dark); }
 .messenger--phone:hover { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
 
-/* Блок шаблона сообщения — светлая «карточка-конверт» на графите */
+/* Блок шаблона сообщения — «карточка-конверт» на светлом фоне */
 .template-box {
   display: grid; gap: 20px;
   padding: 36px 48px;
-  border: 1px solid var(--c-line-dark);
+  border: 1px solid var(--c-line);
   border-radius: var(--radius);
-  background: #262523;
+  background: var(--c-surface);
 }
-.form__title { font-family: var(--font-head); font-size: 26px; font-weight: 500; color: #fff; }
+.form__title { font-family: var(--font-head); font-size: 26px; font-weight: 500; color: var(--c-dark); }
 .template-text {
   width: 100%;
   min-height: 180px;
   padding: 20px;
-  border: 1px solid var(--c-line-dark);
+  border: 1px solid var(--c-line);
   border-radius: var(--radius);
-  background: rgba(245, 243, 238, .05);
-  color: var(--c-bg);
+  background: #fff;
+  color: var(--c-dark);
   font-size: 15px;
   font-family: var(--font-body);
   font-weight: 300;
@@ -603,8 +632,8 @@ button, input, select, textarea { font: inherit; }
   outline: none;
   transition: border-color .25s, background .25s;
 }
-.template-text:focus { border-color: var(--c-accent); background: rgba(245, 243, 238, .08); }
-.form__note { font-size: 14px; }
+.template-text:focus { border-color: var(--c-accent); background: #fff; }
+.form__note { font-size: 14px; color: var(--c-muted); }
 #copyHint { color: var(--c-accent) !important; }
 
 /* =========================================================
