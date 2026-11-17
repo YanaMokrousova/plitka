@@ -699,7 +699,7 @@ button, input, select, textarea { font: inherit; }
 /* Телефоны */
 @media (max-width: 640px) {
   .section { padding: 72px 0; }
-  .container { width: min(1200px, 100% - 32px); }  /* на телефонах боковые отступы меньше */
+  .container { width: min(1200px, 100% - 24px); }  /* на телефонах боковые отступы меньше */
   .section__head { margin-bottom: 44px; }
   .hero { padding-top: calc(var(--header-h) + 24px); padding-bottom: 44px; }
   .hero__actions .btn { width: 100%; }        /* кнопки на всю ширину — удобнее нажимать */
