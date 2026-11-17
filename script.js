@@ -93,26 +93,26 @@ const counterObserver = new IntersectionObserver((entries) => {
 counters.forEach(counter => counterObserver.observe(counter));
 
 /* =========================================================
-   5. ФИЛЬТР ПОРТФОЛИО
+   5. ЛЕНТА ПОРТФОЛИО: прокрутка колесом / трекпадом по горизонтали
+   (вертикальное движение мыши превращаем в прокрутку ленты)
    ========================================================= */
-const filterButtons = document.querySelectorAll('.filter');
-const works = document.querySelectorAll('.work');
+const portfolioTrack = document.querySelector('.portfolio__track');
 
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    // Подсвечиваем нажатую кнопку
-    filterButtons.forEach(btn => btn.classList.remove('is-active'));
-    button.classList.add('is-active');
+if (portfolioTrack) {
+  portfolioTrack.addEventListener('wheel', (e) => {
+    // Реагируем только на обычную вертикальную прокрутку мышью/трекпадом
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
 
-    const filter = button.dataset.filter; // all / bath / kitchen / floor
+    const atStart = portfolioTrack.scrollLeft <= 0;
+    const atEnd = portfolioTrack.scrollLeft + portfolioTrack.clientWidth >= portfolioTrack.scrollWidth - 1;
 
-    // Показываем подходящие работы, остальные прячем
-    works.forEach(work => {
-      const show = filter === 'all' || work.dataset.category === filter;
-      work.classList.toggle('is-hidden', !show);
-    });
-  });
-});
+    // На краях ленты отдаём прокрутку странице, чтобы не «упираться»
+    if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+
+    e.preventDefault();
+    portfolioTrack.scrollLeft += e.deltaY;
+  }, { passive: false });
+}
 
 /* =========================================================
    6. УСЛУГИ: кнопка «Показать больше» / «Свернуть»
