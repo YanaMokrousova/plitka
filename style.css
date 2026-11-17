@@ -699,6 +699,7 @@ button, input, select, textarea { font: inherit; }
 /* Телефоны */
 @media (max-width: 640px) {
   .section { padding: 72px 0; }
+  .container { width: min(1200px, 100% - 32px); }  /* на телефонах боковые отступы меньше */
   .section__head { margin-bottom: 44px; }
   .hero { padding-top: calc(var(--header-h) + 24px); padding-bottom: 44px; }
   .hero__actions .btn { width: 100%; }        /* кнопки на всю ширину — удобнее нажимать */
@@ -710,6 +711,12 @@ button, input, select, textarea { font: inherit; }
   .service { flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px 4px; }
   .review { flex-basis: 88%; padding: 36px 28px; }  /* виден край следующего: понятно, что можно листать */
   .work { flex-basis: 82%; }                        /* на телефонах — одна карточка + край следующей */
+  /* В ленте портфолио текст уменьшаем примерно вдвое */
+  .work__title { font-size: 11px; margin-bottom: 4px; }
+  .work__text { font-size: 7px; line-height: 1.35; margin-bottom: 8px; }
+  .work__meta li { font-size: 6px; letter-spacing: .08em; }
+  .work__tag { font-size: 6px; padding: 4px 9px; top: 10px; left: 10px; }
+  .work__body { padding: 34px 14px 14px; }
   .review__text { font-size: 18px; }
   .template-box { padding: 30px 22px; }
   .footer__inner { flex-direction: column; text-align: center; }
