@@ -367,58 +367,59 @@ button, input, select, textarea { font: inherit; }
 }
 
 /* =========================================================
-   9. УСЛУГИ — тёмный графитовый блок (контраст №3),
-   карточки разделены тонкими линиями 1px
+   9. УСЛУГИ — простой выпадающий список (название + цена),
+   без карточек и фото. Фон — как у первого экрана: то же
+   фото main1.jpg, прозрачное и затемнённое
    ========================================================= */
-.services { background: var(--c-dark); color: rgba(245, 243, 238, .72); }
-.services .section__title { color: #fff; }
-.services .section__text { color: rgba(245, 243, 238, .55); }
-
-.services__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--c-line-dark);
-  border-left: 1px solid var(--c-line-dark);
-}
-/* Пока сетка свёрнута — виден только первый ряд (3 карточки) */
-.services__grid:not(.is-expanded) .service:nth-child(n+4) { display: none; }
-
-/* Карточка: фон — своё фото (images/priceN.jpg) + затемняющий слой,
-   чтобы белый текст читался. Путь к фото задан в style="--bg: url(...)" у карточки */
-.service {
+.services {
   position: relative;
-  isolation: isolate;                 /* затемнение лежит строго над фото и под текстом */
-  display: flex; flex-direction: column;
-  min-height: 260px;
-  padding: 34px 38px;
-  border-right: 1px solid var(--c-line-dark);
-  border-bottom: 1px solid var(--c-line-dark);
-  background-image: var(--bg, none);
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
+  isolation: isolate;                 /* фоновое фото не «вылезает» за секцию */
+  background: var(--c-dark);          /* запасной фон, пока грузится фото */
+  color: rgba(245, 243, 238, .72);
 }
-.service::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(28, 27, 26, .78), rgba(28, 27, 26, .88));
-  transition: opacity .35s;
+/* Слой с фото — такой же приём, что и в .hero__bg */
+.services__bg {
+  position: absolute; inset: 0; z-index: -1;
+  background: url('main1.jpg') center / cover no-repeat;
+  opacity: .35;                          /* «прозрачный», как у главного блока */
+  filter: saturate(.85) contrast(1.05);
 }
-.service:hover::before { opacity: .62; }  /* при наведении фото проявляется сильнее */
-.service > * { position: relative; }      /* текст всегда поверх фона и затемнения */
-.service__num {
-  font-size: 12px;
-  letter-spacing: .3em;
-  color: rgba(245, 243, 238, .6);
-  margin-bottom: auto;                    /* прижимает заголовок и цену к низу карточки */
-  padding-bottom: 24px;
+/* Равномерное затемнение поверх фото, чтобы текст читался */
+.services__bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(28, 27, 26, .72) 0%,
+    rgba(28, 27, 26, .62) 50%,
+    rgba(28, 27, 26, .72) 100%);
 }
-.service__title { font-family: var(--font-head); font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 14px; }
-.service__price { padding-top: 20px; border-top: 1px solid rgba(245, 243, 238, .25); font-size: 15px; letter-spacing: .04em; color: var(--c-bg); }
+.services .container { position: relative; z-index: 1; }
+.services .section__title { color: #fff; }
+.services .section__text { color: rgba(245, 243, 238, .65); }
 
-/* Кнопка «Показать больше» под сеткой услуг */
+/* Список: строки разделены тонкими светлыми линиями */
+.services__list {
+  max-width: 820px;
+  border-top: 1px solid var(--c-line-dark);
+}
+/* Пока список свёрнут — видно только первые 5 строк */
+.services__list:not(.is-expanded) .service:nth-child(n+6) { display: none; }
+
+/* Строка списка: название слева, цена справа */
+.service {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--c-line-dark);
+  transition: padding-left .25s;
+}
+.service:hover { padding-left: 12px; }   /* лёгкий сдвиг при наведении */
+.service__title { font-family: var(--font-head); font-size: 20px; font-weight: 500; color: #fff; }
+.service__price { font-size: 15px; letter-spacing: .04em; color: var(--c-accent); white-space: nowrap; }
+
+/* Кнопка «Показать больше» под списком услуг */
 .services__more { display: flex; justify-content: center; margin-top: 40px; }
 
 /* =========================================================
@@ -658,9 +659,7 @@ button, input, select, textarea { font: inherit; }
   .container { width: min(1200px, 100% - 80px); }  /* на узких экранах боковой отступ меньше */
   .section { padding: 88px 0; }
   .portfolio__grid { grid-template-columns: repeat(2, 1fr); }
-  .services__grid { grid-template-columns: repeat(2, 1fr); }
-  /* На двух колонках «один ряд» = 2 карточки */
-  .services__grid:not(.is-expanded) .service:nth-child(n+3) { display: none; }
+  .service__title { font-size: 18px; }
   .review { flex-basis: calc((100% - 2px) / 2); }
 }
 
@@ -710,11 +709,10 @@ button, input, select, textarea { font: inherit; }
   .hero__stats li { padding-right: 22px; margin-right: 22px; }
   .hero__stats strong { font-size: 32px; }
   .about__grid,
-  .services__grid,
   .portfolio__grid { grid-template-columns: 1fr; }
-  /* На телефоне в свёрнутом виде виден только один ряд = 1 карточка */
-  .services__grid:not(.is-expanded) .service:nth-child(n+2) { display: none; }
-  .service { padding: 34px 26px; }
+  /* На узких экранах в свёрнутом списке видно меньше строк */
+  .services__list:not(.is-expanded) .service:nth-child(n+4) { display: none; }
+  .service { flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px 4px; }
   .review { flex-basis: 88%; padding: 36px 28px; }  /* виден край следующего: понятно, что можно листать */
   .review__text { font-size: 18px; }
   .template-box { padding: 30px 22px; }
