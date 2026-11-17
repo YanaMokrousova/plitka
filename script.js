@@ -115,7 +115,36 @@ filterButtons.forEach(button => {
 });
 
 /* =========================================================
-   6. СЛАЙДЕР ОТЗЫВОВ
+   6. УСЛУГИ: кнопка «Показать больше» / «Свернуть»
+   ========================================================= */
+const servicesGrid = document.getElementById('servicesGrid');
+const servicesMoreBtn = document.getElementById('servicesMoreBtn');
+
+if (servicesGrid && servicesMoreBtn) {
+  // Меняем текст кнопки в зависимости от состояния
+  function updateServicesBtn() {
+    const expanded = servicesGrid.classList.contains('is-expanded');
+    servicesMoreBtn.innerHTML = '';
+    const label = document.createElement('span');
+    label.className = 'service-more__label';
+    label.textContent = expanded ? 'Свернуть' : 'Показать больше';
+    const arrow = document.createElement('span');
+    arrow.className = 'btn__arrow';
+    arrow.innerHTML = expanded ? '&uarr;' : '&darr;';
+    servicesMoreBtn.append(label, arrow);
+    servicesMoreBtn.setAttribute('aria-expanded', expanded);
+  }
+
+  servicesMoreBtn.addEventListener('click', () => {
+    servicesGrid.classList.toggle('is-expanded');
+    updateServicesBtn();
+  });
+
+  updateServicesBtn();
+}
+
+/* =========================================================
+   7. СЛАЙДЕР ОТЗЫВОВ
    ========================================================= */
 const track = document.getElementById('sliderTrack');
 const slides = track.querySelectorAll('.review');

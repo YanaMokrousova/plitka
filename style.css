@@ -380,25 +380,46 @@ button, input, select, textarea { font: inherit; }
   border-top: 1px solid var(--c-line-dark);
   border-left: 1px solid var(--c-line-dark);
 }
+/* Пока сетка свёрнута — виден только первый ряд (3 карточки) */
+.services__grid:not(.is-expanded) .service:nth-child(n+4) { display: none; }
+
+/* Карточка: фон — своё фото (images/priceN.jpg) + затемняющий слой,
+   чтобы белый текст читался. Путь к фото задан в style="--bg: url(...)" у карточки */
 .service {
+  position: relative;
+  isolation: isolate;                 /* затемнение лежит строго над фото и под текстом */
   display: flex; flex-direction: column;
-  padding: 44px 38px;
+  min-height: 260px;
+  padding: 34px 38px;
   border-right: 1px solid var(--c-line-dark);
   border-bottom: 1px solid var(--c-line-dark);
-  background: transparent;
-  transition: background .35s;
+  background-image: var(--bg, none);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
 }
-.service:hover { background: #262523; }
+.service::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(28, 27, 26, .78), rgba(28, 27, 26, .88));
+  transition: opacity .35s;
+}
+.service:hover::before { opacity: .62; }  /* при наведении фото проявляется сильнее */
+.service > * { position: relative; }      /* текст всегда поверх фона и затемнения */
 .service__num {
   font-size: 12px;
   letter-spacing: .3em;
-  color: rgba(245, 243, 238, .45);
-  margin-bottom: 34px;
+  color: rgba(245, 243, 238, .6);
+  margin-bottom: auto;                    /* прижимает заголовок и цену к низу карточки */
+  padding-bottom: 24px;
 }
-.service__icon { width: 40px; height: 40px; stroke: var(--c-accent); margin-bottom: 22px; }
 .service__title { font-family: var(--font-head); font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 14px; }
-.service__text { flex-grow: 1; font-weight: 300; font-size: 15px; margin-bottom: 28px; }
-.service__price { padding-top: 20px; border-top: 1px solid var(--c-line-dark); font-size: 15px; letter-spacing: .04em; color: var(--c-bg); }
+.service__price { padding-top: 20px; border-top: 1px solid rgba(245, 243, 238, .25); font-size: 15px; letter-spacing: .04em; color: var(--c-bg); }
+
+/* Кнопка «Показать больше» под сеткой услуг */
+.services__more { display: flex; justify-content: center; margin-top: 40px; }
 
 /* =========================================================
    10. ПОРТФОЛИО — светлый блок слоновой кости (контраст №4),
@@ -638,6 +659,8 @@ button, input, select, textarea { font: inherit; }
   .section { padding: 88px 0; }
   .portfolio__grid { grid-template-columns: repeat(2, 1fr); }
   .services__grid { grid-template-columns: repeat(2, 1fr); }
+  /* На двух колонках «один ряд» = 2 карточки */
+  .services__grid:not(.is-expanded) .service:nth-child(n+3) { display: none; }
   .review { flex-basis: calc((100% - 2px) / 2); }
 }
 
@@ -689,6 +712,8 @@ button, input, select, textarea { font: inherit; }
   .about__grid,
   .services__grid,
   .portfolio__grid { grid-template-columns: 1fr; }
+  /* На телефоне в свёрнутом виде виден только один ряд = 1 карточка */
+  .services__grid:not(.is-expanded) .service:nth-child(n+2) { display: none; }
   .service { padding: 34px 26px; }
   .review { flex-basis: 88%; padding: 36px 28px; }  /* виден край следующего: понятно, что можно листать */
   .review__text { font-size: 18px; }
