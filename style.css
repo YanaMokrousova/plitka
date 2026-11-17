@@ -356,15 +356,6 @@ button, input, select, textarea { font: inherit; }
 .master__name { font-family: var(--font-head); font-size: 28px; font-weight: 500; color: var(--c-dark); }
 .master__role { color: var(--c-accent); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px; }
 .master__text { font-weight: 300; }
-.master__skills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--c-line); }
-.master__skills li {
-  padding: 7px 16px;
-  border-radius: 999px;                 /* капсулы-теги */
-  border: 1px solid var(--c-line);
-  font-size: 13px;
-  letter-spacing: .04em;
-  color: var(--c-text);
-}
 
 /* =========================================================
    9. УСЛУГИ — простой выпадающий список (название + цена),
