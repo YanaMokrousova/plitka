@@ -11,7 +11,7 @@ function handleHeaderScroll() {
   // если центр шапки попал на тёмный фон — добавляем is-over-dark (белые элементы)
   const probe = 42; // точка внутри высоты шапки
   const el = document.elementFromPoint(window.innerWidth / 2, probe);
-  const darkSection = el && el.closest('.hero, .services, .contacts, footer');
+  const darkSection = el && el.closest('.hero, .services, .reviews, footer');
   header.classList.toggle('is-over-dark', !!darkSection);
 }
 window.addEventListener('scroll', handleHeaderScroll, { passive: true });
