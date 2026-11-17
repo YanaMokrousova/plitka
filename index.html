@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
   <!-- Подключаем наш файл стилей -->
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=13">
 
   <!-- Маленький скрипт: помечает, что JS работает (нужно для анимаций появления) -->
   <script>document.documentElement.classList.add('js');</script>
@@ -149,6 +149,8 @@
 
     <!-- ==================== УСЛУГИ ==================== -->
     <section class="section services" id="services">
+      <!-- Фон как у первого экрана: то же фото, прозрачное и затемнённое -->
+      <div class="services__bg" aria-hidden="true"></div>
       <div class="container">
 
         <div class="section__head reveal">
@@ -157,94 +159,79 @@
           <p class="section__text">Цены ориентировочные. Точную стоимость назовём после замера, и она не изменится в процессе.</p>
         </div>
 
-        <!-- Сетка карточек: по умолчанию виден только один ряд (3 карточки),
-             остальные раскрываются кнопкой «Показать больше».
-             Фон каждой карточки — своё фото images/priceN.jpg с затемнением -->
-        <div class="services__grid" id="servicesGrid">
-          <article class="service reveal" style="--bg: url('images/price1.jpg');">
-            <span class="service__num">01</span>
-            <h3 class="service__title">Укладка керамогранита</h3>
-            <p class="service__price">от 3500р/м2</p>
-          </article>
+        <!-- Простой список услуг: название + цена. По умолчанию видно
+             несколько строк, остальные раскрываются кнопкой «Показать больше» -->
+        <ul class="services__list" id="servicesGrid">
+          <li class="service reveal">
+            <span class="service__title">Укладка керамогранита</span>
+            <span class="service__price">от 3500р/м2</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price2.jpg');">
-            <span class="service__num">02</span>
-            <h3 class="service__title">Укладка кафеля</h3>
-            <p class="service__price">от 3000р/м2</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Укладка кафеля</span>
+            <span class="service__price">от 3000р/м2</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price3.jpg');">
-            <span class="service__num">03</span>
-            <h3 class="service__title">Укладка мозаики</h3>
-            <p class="service__price">от 5500р/м2</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Укладка мозаики</span>
+            <span class="service__price">от 5500р/м2</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price4.jpg');">
-            <span class="service__num">04</span>
-            <h3 class="service__title">Укладка плитки "кабанчик"</h3>
-            <p class="service__price">от 6500р/м2</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Укладка плитки "кабанчик"</span>
+            <span class="service__price">от 6500р/м2</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price5.jpg');">
-            <span class="service__num">05</span>
-            <h3 class="service__title">Кладка фартуков</h3>
-            <p class="service__price">35000р</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Кладка фартуков</span>
+            <span class="service__price">35000р</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price6.jpg');">
-            <span class="service__num">06</span>
-            <h3 class="service__title">Облицовка натуральным камнем</h3>
-            <p class="service__price">от 7000р/м2</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Облицовка натуральным камнем</span>
+            <span class="service__price">от 7000р/м2</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price7.jpg');">
-            <span class="service__num">07</span>
-            <h3 class="service__title">Резка плитки под 45 градусов</h3>
-            <p class="service__price">от 1700р/м</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Резка плитки под 45 градусов</span>
+            <span class="service__price">от 1700р/м</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price8.jpg');">
-            <span class="service__num">08</span>
-            <h3 class="service__title">Резка плитки</h3>
-            <p class="service__price">от 1000р/м</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Резка плитки</span>
+            <span class="service__price">от 1000р/м</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price9.jpg');">
-            <span class="service__num">09</span>
-            <h3 class="service__title">Сверление отверстий в плитке</h3>
-            <p class="service__price">от 1000р</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Сверление отверстий в плитке</span>
+            <span class="service__price">от 1000р</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price10.jpg');">
-            <span class="service__num">10</span>
-            <h3 class="service__title">Затирка швов эпоксидной затиркой</h3>
-            <p class="service__price">от 1000р/м2</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Затирка швов эпоксидной затиркой</span>
+            <span class="service__price">от 1000р/м2</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price11.jpg');">
-            <span class="service__num">11</span>
-            <h3 class="service__title">Герметизация</h3>
-            <p class="service__price">от 500р/м</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Герметизация</span>
+            <span class="service__price">от 500р/м</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price12.jpg');">
-            <span class="service__num">12</span>
-            <h3 class="service__title">Цементная затирка швов</h3>
-            <p class="service__price">от 500р/м2</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Цементная затирка швов</span>
+            <span class="service__price">от 500р/м2</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price13.jpg');">
-            <span class="service__num">13</span>
-            <h3 class="service__title">Устройство гидроизоляции под плитку</h3>
-            <p class="service__price">от 500р/м2</p>
-          </article>
+          <li class="service reveal">
+            <span class="service__title">Устройство гидроизоляции под плитку</span>
+            <span class="service__price">от 500р/м2</span>
+          </li>
 
-          <article class="service reveal" style="--bg: url('images/price14.jpg');">
-            <span class="service__num">14</span>
-            <h3 class="service__title">Демонтаж плитки</h3>
-            <p class="service__price">1000р</p>
-          </article>
-        </div>
+          <li class="service reveal">
+            <span class="service__title">Демонтаж плитки</span>
+            <span class="service__price">1000р</span>
+          </li>
+        </ul>
 
         <!-- Кнопка раскрытия остальных карточек (текст меняет JS) -->
         <div class="services__more">
